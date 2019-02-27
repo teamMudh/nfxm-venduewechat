@@ -1,0 +1,64 @@
+body,
+a,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+dl,
+dl dt,
+dl dd {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+input,
+textarea {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: "微软雅黑";
+  color: #2E2B51;
+  outline: none;
+}
+
+a {
+  color: #2E2B51;
+}
+
+input,
+input:hover,
+input:focus,
+input:active {
+  border: none;
+}
+
+/*去掉ios的圆角*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  -webkit-appearance: none;
+}

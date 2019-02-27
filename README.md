@@ -3,6 +3,7 @@
 ## Project setup
 ```
 npm install
+npm install --save axios x2js
 ```
 
 ### Compiles and hot-reloads for development

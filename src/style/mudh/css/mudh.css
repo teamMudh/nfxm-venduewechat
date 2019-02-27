@@ -1,0 +1,39 @@
+.myheader {
+  top: 0;
+  position: fixed;
+  z-index: 20;
+  height: 1.0rem;
+  width: 100%;
+  line-height: 1.0rem;
+  color: #FFFFFF;
+  background-color: #0A4EA1;
+  font-size: 0.36rem;
+  text-align: center;
+}
+
+.myheader a {
+  color: #FFFFFF;
+  padding: 0 0.2rem;
+  font-size: 0.3rem;
+  font-weight: 100;
+}
+
+.myheader a img {
+  width: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.myheader a.active {
+  font-weight: 600;
+}
+
+.myheader .left {
+  float: left;
+}
+
+.content {
+  padding-bottom: 1.4rem;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+
