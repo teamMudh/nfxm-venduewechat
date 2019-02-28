@@ -2,7 +2,7 @@
   top: 0;
   position: fixed;
   z-index: 20;
-  height: 7vh;
+  height: 7%;
   width: 100%;
   line-height: 1.0rem;
   color: #FFFFFF;
@@ -29,4 +29,34 @@
 
 .myheader .left {
   float: left;
+}
+p {
+  display: block;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+.main {
+  margin-top:13%;
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(239, 239, 239);
+  font-size: 0.3rem;
+}
+.button {
+  height: 6%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: rgb(253, 140, 38);
+  color: white;
+  border-radius: 8px;
+  margin-top: 3%;
+  font-size: 0.3rem;
 }
