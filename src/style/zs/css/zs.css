@@ -1,0 +1,85 @@
+.myheader {
+  top: 0;
+  position: fixed;
+  z-index: 20;
+  height: 1.0rem;
+  width: 100%;
+  line-height: 1.0rem;
+  color: #FFFFFF;
+  background-color: #0A4EA1;
+  font-size: 0.36rem;
+  text-align: center;
+}
+
+.myheader a {
+  color: #FFFFFF;
+  padding: 0 0.2rem;
+  font-size: 0.3rem;
+  font-weight: 100;
+}
+
+.myheader a img {
+  width: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.myheader a.active {
+  font-weight: 600;
+}
+
+.myheader .left {
+  float: left;
+}
+  .headposition{
+    width: 100%;
+    background-color: white;
+  }
+  .entrustSelect{
+    margin-top: 1rem;
+    height: 1rem;
+    border-bottom:1px solid rgb(231, 231, 231)
+  }
+  .entrustSelect p{
+    margin: 15px;
+    font-size: 17px;
+    font-weight: 600;
+    position: absolute;
+  }
+  .entrustSelect img{
+    right: 0;
+    margin: 15px 5px;
+    position: absolute;
+
+  }
+  .tradeSelect{
+    height: 1rem;
+    border-bottom:1px solid rgb(231, 231, 231)
+  }
+   .tradeSelect p{
+    margin: 15px;
+    position: absolute;
+    font-size: 17px;
+    font-weight: 600;
+  }
+   .tradeSelect img{
+    right: 0;
+    margin: 15px 5px;
+    position: absolute;
+
+  }
+  .contractSelect{
+    height: 1rem;
+    border-bottom:1px solid rgb(231, 231, 231)
+  }
+   .contractSelect p{
+    margin: 15px;
+    position: absolute;
+    font-size: 17px;
+    font-weight: 600;
+  }
+    .contractSelect img{
+    right: 0;
+    margin: 15px 5px;
+    position: absolute;
+
+  }
