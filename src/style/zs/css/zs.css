@@ -1,3 +1,10 @@
+html{
+  height: 100%;
+  background-color: rgb(231, 231, 231)
+}
+body{
+  margin: 0;
+}
 .myheader {
   top: 0;
   position: fixed;
@@ -32,54 +39,42 @@
 }
   .headposition{
     width: 100%;
-    background-color: white;
   }
-  .entrustSelect{
+  .firstSelect{
+    background-color: white;
     margin-top: 1rem;
     height: 1rem;
     border-bottom:1px solid rgb(231, 231, 231)
   }
-  .entrustSelect p{
+  .firstSelect p{
     margin: 15px;
     font-size: 17px;
     font-weight: 600;
     position: absolute;
   }
-  .entrustSelect img{
+  .firstSelect img{
     right: 0;
     margin: 15px 5px;
     position: absolute;
 
   }
-  .tradeSelect{
+  .sec-Div{
+    margin-top: 10px;
+  }
+  .secSelect{
+    background-color: white;
     height: 1rem;
     border-bottom:1px solid rgb(231, 231, 231)
   }
-   .tradeSelect p{
+   .secSelect p{
     margin: 15px;
     position: absolute;
     font-size: 17px;
     font-weight: 600;
   }
-   .tradeSelect img{
+   .secSelect img{
     right: 0;
     margin: 15px 5px;
     position: absolute;
 
-  }
-  .contractSelect{
-    height: 1rem;
-    border-bottom:1px solid rgb(231, 231, 231)
-  }
-   .contractSelect p{
-    margin: 15px;
-    position: absolute;
-    font-size: 17px;
-    font-weight: 600;
-  }
-    .contractSelect img{
-    right: 0;
-    margin: 15px 5px;
-    position: absolute;
-
-  }
+   }
