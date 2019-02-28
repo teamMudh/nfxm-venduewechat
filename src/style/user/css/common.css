@@ -1,0 +1,32 @@
+.myheader {
+  top: 0;
+  position: fixed;
+  z-index: 20;
+  height: 7vh;
+  width: 100%;
+  line-height: 1.0rem;
+  color: #FFFFFF;
+  background-color: rgb(74,174,251);
+  font-size: 0.36rem;
+  text-align: center;
+}
+
+.myheader a {
+  color: #FFFFFF;
+  padding: 0 0.2rem;
+  font-size: 0.3rem;
+  font-weight: 100;
+}
+
+.myheader a img {
+  width: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.myheader a.active {
+  font-weight: 600;
+}
+
+.myheader .left {
+  float: left;
+}
