@@ -1,0 +1,51 @@
+<template>
+  <div class="headposition">
+    <header class="myheader">
+      <a class="left" href="" @click.prevent="back">
+        <img src="../../style/mudh/images/back.png" alt="">
+      </a>
+      <span style="padding-right: 0.7rem;">查询</span>
+    </header>
+    <div>
+        <div @click.prevent="entrustSelect" class="entrustSelect">
+            <p>委托查询</p><img src="../../style/zs/images/向右.png">
+        </div>
+        <div @click.prevent="tradeSelect" class="tradeSelect">
+            <p>成交查询</p><img src="../../style/zs/images/向右.png">
+        </div>
+        <div @click.prevent="contractSelect" class="contractSelect">
+            <p>合同查询</p><img src="../../style/zs/images/向右.png">
+        </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    entrustSelect(){
+      this.$router.push({
+        path: '/entrustSelect'
+      });
+    },
+    tradeSelect(){
+      this.$router.push({
+        path: '/tradeSelect'
+      });
+    },
+    contractSelect(){
+      this.$router.push({
+        path: '/contractSelect'
+      });
+    }
+  }
+}
+</script>
+<style>
+ @import "../../style/zs/css/zs.css";
+
+</style>
