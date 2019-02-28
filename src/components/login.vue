@@ -98,7 +98,7 @@
     }
 
     .form_code_left_img {
-        margin-left: 8%;
+        margin-left: 7%;
         height: 60%;
         width: 13%;
         background: rgb(255, 255, 255);
