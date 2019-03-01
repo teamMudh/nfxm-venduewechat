@@ -1,61 +1,66 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p @click.prevent="doSomething">
-      9999888889
-    </p>
-
-  </div>
+    <div style="height: 100%;width: 100%;overflow: hidden">
+        <div>
+            <header class="myheader">
+                <a class="left" href="" @click.prevent="back">
+                    <img src="../../style/mudh/images/back.png" alt="">
+                </a>
+                <span style="padding-right: 0.7rem;">我的</span>
+            </header>
+        </div>
+        <div class="main">
+            <div class="query_item" @click.prevent="nav('/fundsQuery')">
+                <span>资金查询</span>
+                <img src="../../style/zs/images/right.png">
+            </div>
+            <div class="query_item" @click.prevent="nav('/debitFundsQuery')">
+                <span>出入金查询</span>
+                <img src="../../style/zs/images/right.png">
+            </div>
+            <div class="button">退出登录</div>
+        </div>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  },
-  methods:{
-    gettest(){
-      var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="system_time_query"></REQ></GNNT>'
-      this.$ajax.post('',data)
-              .then(resp => {
-                console.log(resp)
-                console.log(resp.data)
-                //将服务器获取的xml格式转化为json对象
-                var jsonObj = this.$x2js.xml2js(resp.data)
-                console.log(jsonObj)
-                console.log(jsonObj.GNNT.REP.RESULT.TD)
-
-              }).catch(error => {
-
-        return;
-      })
-    },
-    doSomething(){
-      this.$router.push('mymenu');
+    export default {
+        name: 'user',
+        methods:{
+            back() {
+                if (window.history.length <= 1) {
+                    this.$router.push({path: '/'})
+                    return false
+                } else {
+                    this.$router.push({path: '/user'})
+                }
+            },
+            nav(name){
+                this.$router.push({path:name})
+            }
+        }
     }
-  },
-
-  created() {
-    this.gettest();
-  }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style scoped>
+    @import "../../style/mudh/css/common.css";
+    @import "../../style/user/css/common.css";
+    
+    .query_item{
+        height: 7%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background: rgb(255,255,255);
+        margin-top: 3%;
+    }
+    .query_item img{
+        width: 6%;
+        height: 45%;
+    }
+    .query_item span{
+        width: 85%;
+    }
 </style>

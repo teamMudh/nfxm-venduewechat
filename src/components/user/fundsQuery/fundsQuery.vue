@@ -1,19 +1,17 @@
 <template>
-    <div>
-        <div>
-            <header class="myheader">
-                <a class="left" href="" @click.prevent="back">
-                    <img src="../../style/mudh/images/back.png" alt="">
-                </a>
-                <span style="padding-right: 0.7rem;">资金查询</span>
-            </header>
-        </div>
+    <div class="content">
+        <header class="myheader">
+            <a class="left" href="" @click.prevent="back">
+                <img src="../../../style/mudh/images/back.png" alt="">
+            </a>
+            <span style="padding-right: 0.7rem;">资金查询</span>
+        </header>
         <div class="main">
             <div class="username">交易商代码&nbsp;&nbsp;&nbsp;&nbsp;999984</div>
             <div class="content">
                 <div class="content_top">
                     <div class="content_top_title">
-                        <div class="content_top_title_img"><img src="../../style/user/images/user.png" alt=""></div>
+                        <div class="content_top_title_img"><img src="../../../style/user/images/user.png" alt=""></div>
                         <div class="content_top_title_info">
                             <div class="content_top_title_info_item" style="color:rgb(188,30,45)">0.00</div>
                             <div class="content_top_title_info_item">当前权益</div>
@@ -22,22 +20,22 @@
                     <div class="content_top_body">
                         <div class="content_line">
                             <div class="content_line_item">
-                                <p>0.00</p>
-                                <p>期初余额</p>
+                                <span>0.00</span>
+                                <span>期初余额</span>
                             </div>
                             <div class="content_line_item" style="border-right:0">
-                                <p>0.00</p>
-                                <p>当前可用资金</p>
+                                <span>0.00</span>
+                                <span>当前可用资金</span>
                             </div>
                         </div>
                         <div class="content_line">
                             <div class="content_line_item" style="border-bottom:0">
-                                <p>0.00</p>
-                                <p>期初权益</p>
+                                <span>0.00</span>
+                                <span>期初权益</span>
                             </div>
                             <div class="content_line_item" style="border-right:0;border-bottom:0">
-                                <p style="color:rgb(187,110,108)">0.00</p>
-                                <p>当前余额</p>
+                                <span style="color:rgb(187,110,108)">0.00</span>
+                                <span>当前余额</span>
                             </div>
                         </div>
                     </div>
@@ -45,52 +43,52 @@
                 <div class="content_bottom">
                     <div class="content_line">
                         <div class="content_line_item">
-                            <p style="color:rgb(187,110,108)">0.00</p>
-                            <p>划入资金</p>
+                            <span style="color:rgb(187,110,108)">0.00</span>
+                            <span>划入资金</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <p style="color:rgb(188,30,45)">0.00</p>
-                            <p>划出资金</p>
+                            <span style="color:rgb(188,30,45)">0.00</span>
+                            <span>划出资金</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item">
-                            <p>0.00</p>
-                            <p>冻结手续费</p>
+                            <span>0.00</span>
+                            <span>冻结手续费</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <p>0.00</p>
-                            <p>冻结保证金</p>
+                            <span>0.00</span>
+                            <span>冻结保证金</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item">
-                            <p>0.00</p>
-                            <p>上日保证金</p>
+                            <span>0.00</span>
+                            <span>上日保证金</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <p>0.00</p>
-                            <p>当日保证金</p>
+                            <span>0.00</span>
+                            <span>当日保证金</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item">
-                            <p>0.00</p>
-                            <p>当日违约金</p>
+                            <span>0.00</span>
+                            <span>当日违约金</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <p>0.00</p>
-                            <p>当日交易手续费</p>
+                            <span>0.00</span>
+                            <span>当日交易手续费</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item" style="border-bottom:0">
-                            <p>0.00</p>
-                            <p>贷款收入</p>
+                            <span>0.00</span>
+                            <span>贷款收入</span>
                         </div>
                         <div class="content_line_item" style="border-right:0;border-bottom:0">
-                            <p>0.00</p>
-                            <p>贷款支出</p>
+                            <span>0.00</span>
+                            <span>贷款支出</span>
                         </div>
                     </div>
                 </div>
@@ -102,56 +100,66 @@
 <script>
     export default {
         name: 'money',
+        methods: {
+            back() {
+                if (window.history.length <= 1) {
+                    this.$router.push({path: '/'})
+                    return false
+                } else {
+                    this.$router.push({path: '/user'})
+                }
+            },
+            getFunds(){
+                var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="fund_info_query"><U>11222222222211</U><SI>11222222222211</SI></REQ></GNNT>'
+                this.$ajax.post('',data)
+                    .then(resp => {
+                        console.log(resp)
+                        console.log(resp.data)
+                        //将服务器获取的xml格式转化为json对象
+                        var jsonObj = this.$x2js.xml2js(resp.data)
+                        console.log(jsonObj)
+                        console.log(jsonObj)
 
+                    }).catch(error => {
+
+                    return;
+                })
+            }
+        },
+        created(){
+            this.getFunds();
+        }
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    @import "../../style/mudh/css/common.css";
-    @import "../../style/user/css/common.css";
-
-    p {
-        display: block;
-        -webkit-margin-before: 0em;
-        -webkit-margin-after: 0em;
-        -webkit-margin-start: 0px;
-        -webkit-margin-end: 0px;
-    }
-
-    .main {
-        margin-top:7vh;
-        height: 93vh;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: rgb(239, 239, 237);
-        font-size: 0.3rem;
-    }
+    @import "../../../style/mudh/css/common.css";
+    @import "../../../style/user/css/common.css";
 
     .username {
-        width: 100vw;
-        height: 6vh;
+        width: 100%;
+        height: 8%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         text-align: left;
         background: rgb(255, 255, 253);
-        padding-left: 5vw;
+        padding-left: 5%;
     }
 
     .content {
-        margin-top: 2vh;
-        width: 100vw;
-        height: auto;
+        margin-top: 3%;
+        width: 100%;
+        height: 87%;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     .content_top {
-        height: auto;
+        height: 30%;
+        width: 96%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -160,8 +168,8 @@
     }
 
     .content_top_title {
+        height: 30%;
         width: 100%;
-        height: 8vh;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -178,34 +186,36 @@
     }
 
     .content_top_title_img img {
-        width: 8vw;
-        height: 4vh;
+        width: 75%;
+        height: 60%;
     }
 
     .content_top_title_info {
         height: 100%;
-        width: 82vw;
+        width: 82%;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
     .content_top_title_info_item {
-        height: 3vh;
+        height: 50%;
         width: 100%;
         text-align: left;
     }
 
     .content_top_body {
-        padding: 1vh 1vw;
+        width: 96%;
+        height: 66%;
+        padding: 2% 2%;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     .content_line {
-        height: 8vh;
-        width: 93vw;
+        height: 50%;
+        width: 100%;
         display: flex;
         flex-direction: row;
     }
@@ -222,10 +232,11 @@
     }
 
     .content_bottom {
-        margin-top: 2vh;
-        height: auto;
+        width: 94%;
+        margin-top: 2%;
+        height: 48%;
         display: flex;
-        padding: 2vh 1vw;
+        padding: 2% 1%;
         flex-direction: column;
         align-items: center;
         justify-content: center;
