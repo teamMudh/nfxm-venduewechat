@@ -6,10 +6,9 @@
         <div class="main">
             <div class="form_user" style="margin-top: 6%">
                 <img class="form_user_img" src="../style/user/images/user.png"/>
-                <input v-model="username" class="form_user_input" name="username" type="text" placeholder="请输入交易账号/用户名"/>
-                <img v-if="username!=''" class="form_user_cancel" @click.prevent="username=''" src="../style/user/images/cancel.png"/>
+                <input v-model="userId" class="form_user_input" name="userId" type="text" placeholder="请输入交易账号/用户名"/>
+                <img v-if="userId!=''" class="form_user_cancel" @click.prevent="userId=''" src="../style/user/images/cancel.png"/>
             </div>
-
             <div class="form_user"><img class="form_user_img" src="../style/user/images/password.png"/>
                 <input v-model="password" name="password" class="form_user_input" type="password" placeholder="请输入交易密码"/>
                 <img v-if="password!=''" class="form_user_cancel" @click.prevent="password=''" src="../style/user/images/cancel.png"/>
@@ -21,47 +20,107 @@
                     <input v-model="msg_code" class="form_code_left_input" name="msgcode" type="text" placeholder="验证码">
                     <img v-if="msg_code!=''" class="form_code_left_cancel" @click.prevent="msg_code=''" src="../style/user/images/cancel.png"/>
                 </div>
-                <div class="form_code_right"><p @click.prevent="gettest">{{msg_code!=''?msg_code:'验证码'}}</p></div>
+                <div class="form_code_right"><p @click.prevent="getvcode">{{code}}</p></div>
             </div>
-
+            <v-dialog v-show="showDialog" :show="showDialog" v-on:change="change($event)" :dialog-option="dialogOption" ref="dialog"></v-dialog>
             <div class="button" @click="submit">登录</div>
         </div>
     </div>
 </template>
 
 <script>
+
+    import dialog from '@/components/user/dialog/Dialog'
+    import {mapState} from 'vuex';
+
     export default {
         name: 'login',
+        components:{
+          'v-dialog':dialog
+        },
+        computed:{
+            ...mapState(['firmId','isLogin'])
+        },
         data() {
             return {
-                username: "",
+                userId:"",
                 password: "",
-                msg_code: ""
+                msg_code: "",
+                code:"",
+                showDialog: false,
+                dialogOption: {
+                    title: '提示',
+                    text: '',
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确定'
+                }
             }
         },
         methods: {
-            submit() {
-
+            change(msg){
+                this.showDialog=msg;
             },
-            gettest(){
-                    var data = '<?xml version="1.0" encoding="GB2312"?><MEBS_MOBILE><REQ name="getnum"><U>11222222222211</U></REQ></MEBS_MOBILE>'
+            confirm() {
+            },
+            submit() {
+                if (this.userId==""){
+                    this.dialogOption.text="请输入用户名"
+                    this.showDialog=true
+                    return;
+                }else if(this.password==""){
+                    this.dialogOption.text="请输入密码"
+                    this.showDialog=true
+                    return;
+                }else if(this.msg_code==""){
+                    this.dialogOption.text="请输入验证码"
+                    this.showDialog=true
+                    return;
+                }else if (this.msg_code!=this.code){
+                    this.getvcode();
+                    this.dialogOption.text="验证码错误，请重新输入"
+                    this.showDialog=true
+                    return;
+                }
+                var that=this;
+                var data = '<?xml version="1.0" encoding="GB2312"?><MEBS_MOBILE><REQ name="user_logon"><U>'+this.userId+'</U><PASSWORD>'+this.password+'</PASSWORD></REQ></MEBS_MOBILE>'
                 this.$ajax.post('',data)
                     .then(resp => {
-                        console.log(resp)
-                        console.log(resp.data)
                         //将服务器获取的xml格式转化为json对象
                         var jsonObj = this.$x2js.xml2js(resp.data)
-                        console.log(jsonObj)
-                        console.log(jsonObj)
-
+                        if (jsonObj.GNNT.REP.RESULT.RETCODE>=0){
+                            that.$store.commit('RECORD_USERINFO',{'firmId':jsonObj.GNNT.REP.RESULT.U,'sessionId':jsonObj.GNNT.REP.RESULT.RETCODE})
+                            that.$store.commit('IS_LOGIN',true)
+                            that.$router.push({path: '/user'})
+                        } else {
+                            that.dialogOption.text="用户名或密码错误"
+                            that.showDialog=true
+                            that.getvcode();
+                            return;
+                        }
                     }).catch(error => {
-
+                    return;
+                })
+            },
+            getvcode(){//获取验证码
+                var data = '<?xml version="1.0" encoding="GB2312"?><MEBS_MOBILE><REQ name="getvcode"></REQ></MEBS_MOBILE>'
+                this.$ajax.post('',data)
+                    .then(resp => {
+                        //将服务器获取的xml格式转化为json对象
+                        var jsonObj = this.$x2js.xml2js(resp.data)
+                        if (jsonObj.GNNT.REP.RESULT.RETCODE>=0){
+                            if (jsonObj.GNNT.REP.RESULT.NUM<=999){
+                                this.code='0'+jsonObj.GNNT.REP.RESULT.NUM
+                            }else {
+                                this.code=""+jsonObj.GNNT.REP.RESULT.NUM
+                            }
+                        }
+                    }).catch(error => {
                     return;
                 })
             },
         },
         created() {
-            this.gettest();
+            this.getvcode();
         }
     }
 </script>

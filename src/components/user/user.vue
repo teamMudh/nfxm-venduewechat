@@ -17,14 +17,18 @@
                 <span>出入金查询</span>
                 <img src="../../style/zs/images/right.png">
             </div>
-            <div class="button">退出登录</div>
+            <div class="button" @click.prevent="logout">退出登录</div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     export default {
         name: 'user',
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
         methods:{
             back() {
                 if (window.history.length <= 1) {
@@ -36,6 +40,30 @@
             },
             nav(name){
                 this.$router.push({path:name})
+            },
+            logout(){
+                var that=this;
+                var data = '<?xml version="1.0" encoding="GB2312"?><MEBS_MOBILE><REQ name="user_logout"><U>'+this.firmId+'</U><S_I>'+this.sessionId+'</S_I></REQ></MEBS_MOBILE>'
+                this.$ajax.post('',data)
+                    .then(resp => {
+                        //将服务器获取的xml格式转化为json对象
+                        var jsonObj = this.$x2js.xml2js(resp.data)
+                        if (jsonObj.GNNT.REP.RESULT.RETCODE>=0){
+                            that.$store.commit('RECORD_USERINFO',{'firmId':"",'sessionId':""})
+                            that.$store.commit('IS_LOGIN',false)
+                            that.$router.push({path: '/'})
+                        } else {
+                            return;
+                        }
+                    }).catch(error => {
+                    return;
+                })
+            }
+        },
+        created(){
+            console.log(this.isLogin+"  "+this.firmId)
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
             }
         }
     }
