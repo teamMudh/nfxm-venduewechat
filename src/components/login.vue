@@ -108,11 +108,11 @@
                         //将服务器获取的xml格式转化为json对象
                         var jsonObj = this.$x2js.xml2js(resp.data)
                         if (jsonObj.GNNT.REP.RESULT.RETCODE>=0){
-                            if (jsonObj.GNNT.REP.RESULT.NUM<=999){
-                                this.code='0'+jsonObj.GNNT.REP.RESULT.NUM
-                            }else {
-                                this.code=""+jsonObj.GNNT.REP.RESULT.NUM
+                            var str=""
+                            for (var i=0;i<4-jsonObj.GNNT.REP.RESULT.NUM.length;i++){
+                                var str="0"+str;
                             }
+                                this.code=str+jsonObj.GNNT.REP.RESULT.NUM
                         }
                     }).catch(error => {
                     return;

@@ -7,34 +7,34 @@
             <span style="padding-right: 0.7rem;">资金查询</span>
         </header>
         <div class="main">
-            <div class="username">交易商代码&nbsp;&nbsp;&nbsp;&nbsp;999984</div>
+            <div class="username">交易商代码&nbsp;&nbsp;&nbsp;&nbsp;{{result.B}}</div>
             <div class="content">
                 <div class="content_top">
                     <div class="content_top_title">
-                        <div class="content_top_title_img"><img src="../../../style/user/images/user.png" alt=""></div>
+                        <div class="content_top_title_img"><img src="../../../style/user/images/funds.png" alt=""></div>
                         <div class="content_top_title_info">
-                            <div class="content_top_title_info_item" style="color:rgb(188,30,45)">0.00</div>
+                            <div class="content_top_title_info_item" style="color:rgb(188,30,45)">{{result.EQT}}</div>
                             <div class="content_top_title_info_item">当前权益</div>
                         </div>
                     </div>
                     <div class="content_top_body">
                         <div class="content_line">
                             <div class="content_line_item">
-                                <span>0.00</span>
+                                <span>{{result.IF}}</span>
                                 <span>期初余额</span>
                             </div>
                             <div class="content_line_item" style="border-right:0">
-                                <span>0.00</span>
+                                <span>{{result.UF}}</span>
                                 <span>当前可用资金</span>
                             </div>
                         </div>
                         <div class="content_line">
                             <div class="content_line_item" style="border-bottom:0">
-                                <span>0.00</span>
+                                <span>{{result.IQT}}</span>
                                 <span>期初权益</span>
                             </div>
                             <div class="content_line_item" style="border-right:0;border-bottom:0">
-                                <span style="color:rgb(187,110,108)">0.00</span>
+                                <span style="color:rgb(187,110,108)">{{result.EF}}</span>
                                 <span>当前余额</span>
                             </div>
                         </div>
@@ -43,51 +43,51 @@
                 <div class="content_bottom">
                     <div class="content_line">
                         <div class="content_line_item">
-                            <span style="color:rgb(187,110,108)">0.00</span>
+                            <span style="color:rgb(187,110,108)">{{result.TI}}</span>
                             <span>划入资金</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <span style="color:rgb(188,30,45)">0.00</span>
+                            <span style="color:rgb(188,30,45)">{{result.TO}}</span>
                             <span>划出资金</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item">
-                            <span>0.00</span>
+                            <span>{{result.FF}}</span>
                             <span>冻结手续费</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <span>0.00</span>
+                            <span>{{result.FM}}</span>
                             <span>冻结保证金</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item">
-                            <span>0.00</span>
+                            <span>{{result.CM}}</span>
                             <span>上日保证金</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <span>0.00</span>
+                            <span>{{result.RM}}</span>
                             <span>当日保证金</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item">
-                            <span>0.00</span>
+                            <span>{{result.RB}}</span>
                             <span>当日违约金</span>
                         </div>
                         <div class="content_line_item" style="border-right:0">
-                            <span>0.00</span>
+                            <span>{{result.TF}}</span>
                             <span>当日交易手续费</span>
                         </div>
                     </div>
                     <div class="content_line">
                         <div class="content_line_item" style="border-bottom:0">
-                            <span>0.00</span>
+                            <span>{{result.PI}}</span>
                             <span>贷款收入</span>
                         </div>
                         <div class="content_line_item" style="border-right:0;border-bottom:0">
-                            <span>0.00</span>
+                            <span>{{result.PO}}</span>
                             <span>贷款支出</span>
                         </div>
                     </div>
@@ -98,8 +98,39 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     export default {
-        name: 'money',
+        name: 'fundsQuery',
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
+        data(){
+            return{
+                result:{
+                    B:"",
+                    BT:"",
+                    CM:"",
+                    EF:"",
+                    EQT:"",
+                    FF:"",
+                    FM:"",
+                    FN:"",
+                    FP:"",
+                    IF:"",
+                    IQT:"",
+                    PI:"",
+                    PO:"",
+                    RB:"",
+                    RETCODE:"",
+                    RM:"",
+                    TF:"",
+                    TI:"",
+                    TO:"",
+                    UF:"",
+                    VF:""
+                }
+            }
+        },
         methods: {
             back() {
                 if (window.history.length <= 1) {
@@ -110,23 +141,21 @@
                 }
             },
             getFunds(){
-                var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="fund_info_query"><U>11222222222211</U><SI>11222222222211</SI></REQ></GNNT>'
+                var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="fund_info_query"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI></REQ></GNNT>'
                 this.$ajax.post('',data)
                     .then(resp => {
-                        console.log(resp)
-                        console.log(resp.data)
                         //将服务器获取的xml格式转化为json对象
                         var jsonObj = this.$x2js.xml2js(resp.data)
-                        console.log(jsonObj)
-                        console.log(jsonObj)
-
+                        this.result=jsonObj.GNNT.REP.RESULT;
                     }).catch(error => {
-
                     return;
                 })
             }
         },
         created(){
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
+            }
             this.getFunds();
         }
     }
@@ -187,7 +216,7 @@
 
     .content_top_title_img img {
         width: 75%;
-        height: 60%;
+        height: 80%;
     }
 
     .content_top_title_info {

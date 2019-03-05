@@ -61,7 +61,6 @@
             }
         },
         created(){
-            console.log(this.isLogin+"  "+this.firmId)
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }

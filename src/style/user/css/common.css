@@ -80,6 +80,7 @@ p {
 }
 
 .span_value {
+    white-space: nowrap;
     color: black;
 }
 
