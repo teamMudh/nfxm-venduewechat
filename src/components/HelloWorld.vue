@@ -32,7 +32,7 @@ export default {
       })
     },
     doSomething(){
-      this.$router.push('mymenu');
+      this.$router.push('billApplyList');
     }
   },
 

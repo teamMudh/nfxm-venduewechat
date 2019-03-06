@@ -1,12 +1,45 @@
+body{
+  background-color: #f4f4f4;
+}
+
+/*背景颜色*/
+
+.blue {
+  background-color: #0077EE;
+}
+
+.pink {
+  background-color: #FF6A54;
+}
+
+.green {
+  background-color: #2CD3A1;
+}
+
+.gray {
+  background-color: #2CD3A1;
+}
+
+.white {
+  background-color: #FFFFFF;
+}
+
+.font-blue {
+  color: #4a93d7 ;
+}
+.font-size36 {
+  font-size: 0.36rem;
+}
+
 .myheader {
   top: 0;
   position: fixed;
   z-index: 20;
-  height: 1.0rem;
+  height: 0.9rem;
   width: 100%;
-  line-height: 1.0rem;
+  line-height: 0.9rem;
   color: #FFFFFF;
-  background-color: #0A4EA1;
+  background-color: #4a93d7;
   font-size: 0.36rem;
   text-align: center;
 }
@@ -20,7 +53,7 @@
 
 .myheader a img {
   width: 0.4rem;
-  margin-top: 0.3rem;
+  margin-top: 0.25rem;
 }
 
 .myheader a.active {
@@ -31,9 +64,25 @@
   float: left;
 }
 
+.right {
+  float: right;
+}
+
+
+/*个人中心信息修改*/
+.gray {
+  height: 0.2rem;
+  background: #f4f4f4;
+  padding-top: 0.89rem;
+}
+
+
 .content {
   padding-bottom: 1.4rem;
   width: 100%;
   background-color: #f4f4f4;
 }
+
+
+
 

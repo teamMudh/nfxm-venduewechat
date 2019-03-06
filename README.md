@@ -4,6 +4,10 @@
 ```
 npm install
 npm install --save axios x2js
+##引入 ui
+cnpm install vux-loader --save-dev
+cnpm install   --save vux
+cnpm install vue-loader@14.2.2 -D
 ```
 
 ### Compiles and hot-reloads for development
