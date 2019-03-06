@@ -7,13 +7,13 @@
       <span style="padding-right: 0.7rem;">查询</span>
     </header>
     <div>
-        <div @click.prevent="entrustSelect" class="firstSelect">
+        <div @click.prevent="entrustQuery" class="firstSelect">
             <p>委托查询</p><img src="../../style/zs/images/right.png">
         </div>
-        <div @click.prevent="tradeSelect" class="secSelect">
+        <div @click.prevent="tradeQuery" class="secSelect">
             <p>成交查询</p><img src="../../style/zs/images/right.png">
         </div>
-        <div @click.prevent="contractSelect" class="secSelect">
+        <div @click.prevent="contractQuery" class="secSelect">
             <p>合同查询</p><img src="../../style/zs/images/right.png">
         </div>
     </div>
@@ -38,19 +38,19 @@ export default {
     }
   },
   methods: {
-    entrustSelect(){
+    entrustQuery(){
       this.$router.push({
-        path: '/entrustSelect'
+        path: '/entrustQuery'
       });
     },
-    tradeSelect(){
+    tradeQuery(){
       this.$router.push({
-        path: '/tradeSelect'
+        path: '/tradeQuery'
       });
     },
-    contractSelect(){
+    contractQuery(){
       this.$router.push({
-        path: '/contractSelect'
+        path: '/contractQuery'
       });
     }
   }
