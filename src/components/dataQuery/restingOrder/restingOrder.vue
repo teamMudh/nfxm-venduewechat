@@ -5,9 +5,13 @@
             <span>挂单查询</span>
         </header>
         <div id="main" class="main">
-            <div v-if="REC.length==0" class="info_">
-                <div class="info_img"><img src="../../../style/zs/images/select.png"></div>
-                <span>很抱歉，没有找到相关信息</span>
+            <div class="nodata"  v-if="REC.length==0">
+                <div class="nofound">
+                    <img src="../../../style/zs/images/select.png">
+                </div>
+                <div class="nofoundp">
+                    <p>很抱歉，没有找到相关信息</p>
+                </div>
             </div>
             <div v-if="REC.length!=0" v-for="(item,index) in REC" class="info_item" :key="index">
                 <div class="info_item_top">
@@ -152,31 +156,60 @@
     @import "../../../style/mudh/css/common.css";
     @import "../../../style/user/css/common.css";
 
-    .info_{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: rgb(218,216,216);
-    }
-    .info_img{
-        width: 20%;
-        height: 12%;
-        display: flex;
-        margin-top: 40%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-radius: 100%;
-        background: rgb(218,216,216);
-        margin-bottom: 3%;
-    }
-    .info_img img{
-        height: 50%;
-        width: 50%;
-    }
+    /*.info_{*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*align-items: center;*/
+        /*color: rgb(218,216,216);*/
+    /*}*/
+    /*.info_img{*/
+        /*width: 20%;*/
+        /*height: 12%;*/
+        /*display: flex;*/
+        /*margin-top: 40%;*/
+        /*flex-direction: column;*/
+        /*align-items: center;*/
+        /*justify-content: center;*/
+        /*border-radius: 100%;*/
+        /*background: rgb(218,216,216);*/
+        /*margin-bottom: 3%;*/
+    /*}*/
+    /*.info_img img{*/
+        /*height: 50%;*/
+        /*width: 50%;*/
+    /*}*/
+    .nofound{
 
+        background-color: #DAD8D9;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .nofound img{
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+    }
+    .nofound p{
+        color: #FFFFFF;
+        height: 100%;
+    }
+    .nofoundp{
+        margin-top: 3%;
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        font-size: 17px;
+        color: rgb(163, 160, 160);
+    }
     .info_item{
         width: 100%;
         height: 30%;
