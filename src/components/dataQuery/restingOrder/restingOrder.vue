@@ -7,46 +7,50 @@
             <span style="padding-right: 0.7rem;">挂单查询</span>
         </header>
         <div class="main">
-            <div class="info_item">
+            <div v-if="REC.length==0" class="info_">
+                <div class="info_img"><img src="../../../style/zs/images/select.png"></div>
+                <span>很抱歉，没有找到相关信息</span>
+            </div>
+            <div v-if="REC.length!=0" v-for="(item,index) in REC" class="info_item" :key="index">
                 <div class="info_item_top">
                     <div class="info_item_top_left">
                         <span class="span_name">标的代码</span>
-                        <span class="span_value">123133</span>
+                        <span class="span_value">{{item.C}}</span>
                     </div>
                     <div class="info_item_top_mid">
                         <span class="span_name">标的名称</span>
-                        <span class="span_value">混合</span>
+                        <span class="span_value">{{item.N}}</span>
                     </div>
                     <div class="info_item_top_right">
                         <span class="span_name">标的数量</span>
-                        <span class="span_value">3000</span>
+                        <span class="span_value">{{item.Q}}</span>
                     </div>
                 </div>
                 <div class="info_item_top">
                     <div class="info_item_top_left">
                         <span class="span_name">交易状态</span>
-                        <span class="status">成功</span>
+                        <span class="status">{{SMAP[item.S]}}</span>
                     </div>
                     <div class="info_item_top_mid">
                         <span class="span_name">交易权限</span>
-                        <span class="span_value">全权</span>
+                        <span class="span_value">{{AMAP[item.A]}}</span>
                     </div>
                     <div class="info_item_top_right">
                         <span class="span_name">流拍量</span>
-                        <span class="span_value">13214500</span>
+                        <span class="span_value">{{item.PQ}}</span>
                     </div>
                 </div>
                 <div class="info_item_bottom">
                     <div class="info_item_bottom_">
                         <span class="span_name">第一次挂标日期</span>
-                        <span class="span_value">13214500</span>
+                        <span class="span_value">{{item.CT | formatDate}}</span>
                     </div>
                     <div class="info_item_bottom_">
                         <span class="span_name">创建时间</span>
-                        <span class="span_value">2019/2/26&nbsp;&nbsp;08:00:00</span>
+                        <span class="span_value">{{item.CT | formatDates}}</span>
                     </div>
                     <div class="info_item_bottom_button">
-                        <button @click.prevent="nav(1)">查看</button>
+                        <button @click.prevent="nav(index)">查看</button>
                     </div>
                 </div>
             </div>
@@ -55,8 +59,28 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     export default {
         name: 'restingOrder',
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
+        data(){
+            return{
+                REC:[],
+                SMAP:{//交易状态
+                    1:'未成交',
+                    2:'全部成交',
+                    3:'部分成交',
+                    4:'已流拍'
+                },
+                AMAP:{//权限
+                    0:'全权',
+                    1:'指定客户有权',
+                    2:'指定客户无权'
+                }
+            }
+        },
         methods: {
             back() {
                 if (window.history.length <= 1) {
@@ -66,28 +90,53 @@
                     this.$router.push({path: '/user'})
                 }
             },
-            nav(id) {
-                console.log(id)
-                this.$router.push({name:'restingOrderDetail',params:{id:id}});
-            },
             getRestingOrder(){
-                var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="fund_info_query"><U>11222222222211</U><SI>11222222222211</SI><PID>1</PID></REQ></GNNT>'
+                var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="pending_query"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>-1</PID></REQ></GNNT>'
                 this.$ajax.post('',data)
-                    .then(resp => {
-                        console.log(resp)
-                        console.log(resp.data)
-                        //将服务器获取的xml格式转化为json对象
-                        var jsonObj = this.$x2js.xml2js(resp.data)
-                        console.log(jsonObj)
-                        console.log(jsonObj)
-
-                    }).catch(error => {
-
+                .then(resp => {
+                    //将服务器获取的xml格式转化为json对象
+                    var jsonObj = this.$x2js.xml2js(resp.data)
+                    this.REC=jsonObj.GNNT.REP.RESULTLIST.REC;
+                }).catch(error => {
                     return;
                 })
+            },
+            nav(id) {
+                this.$router.push({name:'restingOrderDetail',params:{PID:this.REC[id].PID,C:this.REC[id].C}});
+            }
+        },
+        filters:{
+            formatDate: function (value) {
+                let date = new Date(parseInt(value));
+                console.log(date)
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                return y + '-' + MM + '-' + d;
+            },
+            formatDates: function (value) {
+                let date = new Date(parseInt(value));
+                console.log(date)
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return y + '/' + MM + '/' + d + '    ' + h + ':' + m + ':' + s;
             }
         },
         created(){
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
+            }
             this.getRestingOrder();
         }
     }
@@ -98,6 +147,31 @@
     @import "../../../style/mudh/css/common.css";
     @import "../../../style/user/css/common.css";
 
+    .info_{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgb(218,216,216);
+    }
+    .info_img{
+        width: 20%;
+        height: 12%;
+        display: flex;
+        margin-top: 40%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        background: rgb(218,216,216);
+        margin-bottom: 3%;
+    }
+    .info_img img{
+        height: 50%;
+        width: 50%;
+    }
+
     .info_item{
         width: 100%;
         height: 30%;
@@ -105,7 +179,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-bottom: 2px solid rgb(239, 239, 239);
+        border-bottom: 4px solid rgb(239, 239, 239);
         background: rgb(255,255,255);
         font-size: 0.25rem;
     }

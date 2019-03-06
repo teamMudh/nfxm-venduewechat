@@ -48,6 +48,9 @@
 <script>
     export default {
         name: 'debitFundsQuery',
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
         methods: {
             back() {
                 if (window.history.length <= 1) {
@@ -69,9 +72,13 @@
                         console.log(jsonObj)
 
                     }).catch(error => {
-
                     return;
                 })
+            }
+        },
+        created() {
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
             }
         }
     }
