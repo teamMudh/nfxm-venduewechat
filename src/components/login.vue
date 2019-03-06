@@ -3,7 +3,7 @@
         <header class="myheader">
             <span>登录</span>
         </header>
-        <div class="main">
+        <div id="main" class="main">
             <div class="form_user" style="margin-top: 6%">
                 <img class="form_user_img" src="../style/user/images/user.png"/>
                 <input v-model="userId" class="form_user_input" name="userId" type="text" placeholder="请输入交易账号/用户名"/>
@@ -55,6 +55,12 @@
                     confirmButtonText: '确定'
                 }
             }
+        },
+        mounted: function () {
+            //原生获取屏幕高度
+            console.log(document.getElementById('main'))
+            var orderHight = document.body.clientHeight
+            document.getElementById('main').style.height = orderHight-50 + 'px'
         },
         methods: {
             change(msg){
@@ -137,7 +143,7 @@
         height: 6%;
         align-items: center;
         justify-content: center;
-        margin-top: 1%;
+        margin: 2% auto;
         border: 1px solid rgb(216, 214, 214);
         border-radius: 8px;
         background: rgb(255, 255, 255);

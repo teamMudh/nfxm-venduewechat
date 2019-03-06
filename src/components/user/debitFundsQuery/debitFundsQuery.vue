@@ -1,12 +1,10 @@
 <template>
     <div class="content">
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
+            <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
             <span style="padding-right: 0.7rem;">出入金查询</span>
         </header>
-        <div class="main">
+        <div id="main" class="main">
             <div class="info_item">
                 <div class="info_item_top">
                     <div class="info_item_top_left">
@@ -50,6 +48,11 @@
         name: 'debitFundsQuery',
         computed:{
             ...mapState(['firmId','isLogin','sessionId'])
+        },
+        mounted: function () {
+            //原生获取屏幕高度
+            var orderHight = document.body.clientHeight
+            document.getElementById('main').style.height = orderHight-50 + 'px'
         },
         methods: {
             back() {

@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="sec-Div">
-        <div class="secSelect">
+        <div class="secSelect" @click.prevent="orderQuery">
             <p>挂单查询</p><img src="../../style/zs/images/right.png">
         </div>
         <div  class="secSelect">
@@ -52,6 +52,11 @@ export default {
       this.$router.push({
         path: '/contractQuery'
       });
+    },
+    orderQuery(){
+        this.$router.push({
+        path: '/restingOrder'
+    });
     }
   }
 }

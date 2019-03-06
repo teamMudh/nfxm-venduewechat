@@ -1,53 +1,140 @@
 <template>
     <div class="content">
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
-            <span style="padding-right: 0.7rem;">挂单详情</span>
+            <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
+            <span>挂单详情</span>
         </header>
-        <div class="main">
-            <div class="info_item">
-                <div class="info_item_top">
-                    <div class="info_item_top_left">
-                        <span class="span_name">标的代码</span>
-                        <span class="span_value">123133</span>
-                    </div>
-                    <div class="info_item_top_mid">
-                        <span class="span_name">标的名称</span>
-                        <span class="span_value">混合</span>
-                    </div>
-                    <div class="info_item_top_right">
-                        <span class="span_name">标的数量</span>
-                        <span class="span_value">3000</span>
-                    </div>
+        <div id="main" class="main">
+            <div class="content_title">
+                <span>基本信息</span>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.C}}</span>
+                    <span class="span_value">标的代码</span>
                 </div>
-                <div class="info_item_top">
-                    <div class="info_item_top_left">
-                        <span class="span_name">交易状态</span>
-                        <span class="status">成功</span>
-                    </div>
-                    <div class="info_item_top_mid">
-                        <span class="span_name">交易权限</span>
-                        <span class="span_value">全权</span>
-                    </div>
-                    <div class="info_item_top_right">
-                        <span class="span_name">流拍量</span>
-                        <span class="span_value">13214500</span>
-                    </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.N}}</span>
+                    <span class="span_value">标的名称</span>
                 </div>
-                <div class="info_item_bottom">
-                    <div class="info_item_bottom_">
-                        <span class="span_name">第一次挂标日期</span>
-                        <span class="span_value">13214500</span>
-                    </div>
-                    <div class="info_item_bottom_">
-                        <span class="span_name">创建时间</span>
-                        <span class="span_value">2019/2/26&nbsp;&nbsp;08:00:00</span>
-                    </div>
-                    <div class="info_item_bottom_button">
-                        <button>查看{{this.$route.params.id}}</button>
-                    </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.BID}}</span>
+                    <span class="span_value">品种代码</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.BN}}</span>
+                    <span class="span_value">品种名称</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.Q|numFilter}}</span>
+                    <span class="span_value">标的数量</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.BP}}</span>
+                    <span class="span_value">起拍价</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.AP}}</span>
+                    <span class="span_value">报警价</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.SP}}</span>
+                    <span class="span_value">加价幅度</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.MXSP}}</span>
+                    <span class="span_value">最高加价幅度</span>
+                </div>
+            </div>
+            <div class="content_title">
+                <span>费用信息</span>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.MAA==1?'百分比':'数量'}}</span>
+                    <span class="span_value">交易保证金算法</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.MAB|numFilter}}</span>
+                    <span class="span_value">交易买保证金系数</span>
+                </div>
+                <div class="content_line_item_right" style="border-top: 1px solid rgb(239, 239, 237);">
+                    <span>{{RESULT.MAS|numFilter}}</span>
+                    <span class="span_value">交易卖保证金系数</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.FEA==1?'百分比':'数量'}}</span>
+                    <span class="span_value">交易手续费算法</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.FEB|numFilter}}</span>
+                    <span class="span_value">交易买手续费系数</span>
+                </div>
+                <div class="content_line_item_right" style="border-top: 1px solid rgb(239, 239, 237);">
+                    <span>{{RESULT.FES|numFilter}}</span>
+                    <span class="span_value">交易卖手续费系数</span>
+                </div>
+            </div>
+            <div class="content_title">
+                <span>标的交收属性</span>
+            </div>
+            <div class="content_line" v-for="(item,index) in DP" v-if="item.PV!=null&&item.PV!=''&&item.PN!=null&&item.PN!=''">
+                <div class="content_line_item_single">
+                    <span>{{item.PV}}</span>
+                    <span class="span_value">{{item.PN}}</span>
+                </div>
+            </div>
+            <div class="content_title">
+                <span>其他信息</span>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.QP}}</span>
+                    <span class="span_value">数量精度</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.TU|numFilter}}</span>
+                    <span class="span_value">交易数量</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.MIQ|numFilter}}</span>
+                    <span class="span_value">最小报单数量</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.MXQ|numFilter}}</span>
+                    <span class="span_value">最大报单数量</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.PQA==1?'百分比':'数量'}}</span>
+                    <span class="span_value">流拍量算法</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.PQR|numFilter}}</span>
+                    <span class="span_value">流拍量比例</span>
+                </div>
+            </div>
+            <div class="content_line">
+                <div class="content_line_item_left">
+                    <span>{{RESULT.BS==1?'买':'卖'}}</span>
+                    <span class="span_value">买卖方向</span>
                 </div>
             </div>
         </div>
@@ -55,20 +142,60 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     export default {
-        name: 'restingOrder',
+        name: 'restingOrderDetail',
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
+        data(){
+            return{
+                RESULT:"",
+                DP:""
+            }
+        },
         methods: {
             back() {
                 if (window.history.length <= 1) {
                     this.$router.push({path: '/'})
                     return false
                 } else {
-                    this.$router.push({path: '/user'})
+                    this.$router.push({path: '/restingOrder'})
                 }
+            },
+            getDetail(PID,C){
+                var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="pending_detail"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>'+PID+'</PID><C>'+C+'</C></REQ></GNNT>'
+                this.$ajax.post('',data)
+                    .then(resp => {
+                        //将服务器获取的xml格式转化为json对象
+                        var jsonObj = this.$x2js.xml2js(resp.data)
+                        this.RESULT=jsonObj.GNNT.REP.RESULT;
+                        this.DP=JSON.parse(this.RESULT.DP);
+                        console.log(this.DP)
+                    }).catch(error => {
+                    return;
+                })
             }
         },
-        create(){
-            console.log(this.$route.params.id)
+        filters:{
+            numFilter(value) {
+                // 截取当前数据到小数点后两位
+                let realVal = parseFloat(value).toFixed(2)
+                // num.toFixed(2)获取的是字符串
+                return parseFloat(realVal)
+
+            }
+        },
+        created(){
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
+            }
+             this.getDetail(this.$route.params.PID,this.$route.params.C)
+        },
+        mounted: function () {
+            //原生获取屏幕高度
+            var orderHight = document.body.clientHeight
+            document.getElementById('main').style.height = orderHight-50 + 'px'
         }
     }
 </script>
@@ -78,76 +205,54 @@
     @import "../../../style/mudh/css/common.css";
     @import "../../../style/user/css/common.css";
 
-    .info_item{
-        width: 100%;
-        height: 30%;
+    .content_title{
+        margin: 0 auto;
+        width: 94%;
+        height: 7%;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        border-bottom: 2px solid rgb(239, 239, 239);
-        background: rgb(255,255,255);
-        font-size: 0.25rem;
     }
-    .info_item_top{
-        width: 95%;
-        height: 33%;
+    .content_line {
+        height: 10%;
+        width: 98%;
+        margin: 0 auto;
         display: flex;
         flex-direction: row;
+        background: white;
+        font-size: 0.29rem;
+    }
+    .content_line_item_single {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-bottom: 1px solid rgb(239, 239, 239);
+        border-bottom: 1px solid rgb(239, 239, 237);
     }
-    .info_item_top_left{
-        flex: 1;
+    .content_line_item_left {
         height: 100%;
+        width: 50%;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
+        border-right: 1px solid rgb(239, 239, 237);
+        border-bottom: 1px solid rgb(239, 239, 237);
     }
-    .info_item_top_mid{
-        flex: 1;
+    .content_line_item_right {
         height: 100%;
+        flex: 1;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
+        border-right: 1px solid rgb(239, 239, 237);
+        border-bottom: 1px solid rgb(239, 239, 237);
     }
 
-    .info_item_top_right{
-        flex: 1;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .info_item_bottom{
-        width: 95%;
-        height: 33%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    .info_item_bottom_{
-        width: 40%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .info_item_bottom_button{
-        width: 20%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .info_item_bottom_button button{
-        width: 80%;
-        height: 40%;
-        text-align: center;
-        color: rgb(241,145,56);
-        border: 2px solid rgb(241,145,56);
-        border-radius: 9px;
-        background: rgb(255,255,255);
+    .span_value{
+        color: rgb(173, 173, 173);
+        margin-top: 1%;
     }
 </style>

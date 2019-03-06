@@ -1,14 +1,12 @@
 <template>
     <div class="content">
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
-            <span style="padding-right: 0.7rem;">资金查询</span>
+            <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
+            <span>资金查询</span>
         </header>
-        <div class="main">
+        <div id="main" class="main">
             <div class="username">交易商代码&nbsp;&nbsp;&nbsp;&nbsp;{{result.B}}</div>
-            <div class="content">
+            <div class="contentc">
                 <div class="content_top">
                     <div class="content_top_title">
                         <div class="content_top_title_img"><img src="../../../style/user/images/funds.png" alt=""></div>
@@ -106,30 +104,13 @@
         },
         data(){
             return{
-                result:{
-                    B:"",
-                    BT:"",
-                    CM:"",
-                    EF:"",
-                    EQT:"",
-                    FF:"",
-                    FM:"",
-                    FN:"",
-                    FP:"",
-                    IF:"",
-                    IQT:"",
-                    PI:"",
-                    PO:"",
-                    RB:"",
-                    RETCODE:"",
-                    RM:"",
-                    TF:"",
-                    TI:"",
-                    TO:"",
-                    UF:"",
-                    VF:""
-                }
+                result:''
             }
+        },
+        mounted: function () {
+            //原生获取屏幕高度
+            var orderHight = document.body.clientHeight
+            document.getElementById('main').style.height = orderHight-50 + 'px'
         },
         methods: {
             back() {
@@ -167,7 +148,7 @@
     @import "../../../style/user/css/common.css";
 
     .username {
-        width: 100%;
+        width: 95%;
         height: 8%;
         display: flex;
         flex-direction: column;
@@ -177,7 +158,7 @@
         padding-left: 5%;
     }
 
-    .content {
+    .contentc {
         margin-top: 3%;
         width: 100%;
         height: 87%;

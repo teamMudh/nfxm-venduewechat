@@ -1,14 +1,10 @@
 <template>
-    <div style="height: 100%;width: 100%;overflow: hidden">
-        <div>
+    <div class="content">
             <header class="myheader">
-                <a class="left" href="" @click.prevent="back">
-                    <img src="../../style/mudh/images/back.png" alt="">
-                </a>
+                <img @click.prevent="back" src="../../style/mudh/images/back.png" alt="">
                 <span style="padding-right: 0.7rem;">我的</span>
             </header>
-        </div>
-        <div class="main">
+        <div id="main" class="main">
             <div class="query_item" @click.prevent="nav('/fundsQuery')">
                 <span>资金查询</span>
                 <img src="../../style/zs/images/right.png">
@@ -28,6 +24,11 @@
         name: 'user',
         computed:{
             ...mapState(['firmId','isLogin','sessionId'])
+        },
+        mounted: function () {
+            //原生获取屏幕高度
+            var orderHight = document.body.clientHeight
+            document.getElementById('main').style.height = orderHight-50 + 'px'
         },
         methods:{
             back() {

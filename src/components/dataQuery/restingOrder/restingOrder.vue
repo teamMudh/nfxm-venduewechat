@@ -1,12 +1,10 @@
 <template>
     <div class="content">
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
-            <span style="padding-right: 0.7rem;">挂单查询</span>
+            <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
+            <span>挂单查询</span>
         </header>
-        <div class="main">
+        <div id="main" class="main">
             <div v-if="REC.length==0" class="info_">
                 <div class="info_img"><img src="../../../style/zs/images/select.png"></div>
                 <span>很抱歉，没有找到相关信息</span>
@@ -81,13 +79,19 @@
                 }
             }
         },
+        mounted: function () {
+            //原生获取屏幕高度
+            var orderHight = document.body.clientHeight
+            console.log(document.getElementById('main'))
+            document.getElementById('main').style.height = orderHight-50 + 'px'
+        },
         methods: {
             back() {
                 if (window.history.length <= 1) {
                     this.$router.push({path: '/'})
                     return false
                 } else {
-                    this.$router.push({path: '/user'})
+                    this.$router.push({path: '/dataQuery'})
                 }
             },
             getRestingOrder(){
@@ -134,6 +138,7 @@
             }
         },
         created(){
+            console.log("登录状态"+this.isLogin)
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }
