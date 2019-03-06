@@ -1,12 +1,10 @@
 <template>
     <div class="content">
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
-            <span style="padding-right: 0.7rem;">资金查询</span>
+            <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
+            <span style="padding-right: 0.7rem;">合同详情</span>
         </header>
-        <div class="main">
+        <div class="main" style="width:100%;height:100%;">
                 <div class="username">基本信息</div>
                 <div class="content">
                     <div class="content_top">
@@ -151,6 +149,7 @@ export default {
             td:'',
         }
     },
+    
     methods: {
         getDetail(){
             var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="contract_detail"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>1</PID><I>'+this.id+'</I></REQ></GNNT>'
@@ -161,6 +160,7 @@ export default {
                     // console.log(jsonObj)
                     this.detailList = jsonObj.GNNT.REP.RESULT;
                     this.td = JSON.parse(this.detailList.TD);
+                    console.log(this.td)
                     // console.log(this.detailList);
                     // console.log(this.td);
                 }).catch(error => {
@@ -181,8 +181,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    @import "../../../style/mudh/css/common.css";
-    @import "../../../style/user/css/common.css";
 
     .username {
         width: 100%;

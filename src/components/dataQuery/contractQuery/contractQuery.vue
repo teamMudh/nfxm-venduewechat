@@ -1,64 +1,64 @@
 <template>
-  <div class="notFounds">
-      <header class="myheader">
-      <a class="left" href="" @click.prevent="back">
-        <img src="../../../style/mudh/images/back.png" alt="">
-      </a>
+  <div class="content">
+    <header class="myheader">
+        <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
       <span style="padding-right: 0.7rem;">合同查询</span>
     </header>
-    <div class="nodata" v-if="isdisplay">
-        <div class="nofound">
-        <img src="../../../style/zs/images/select.png">
-        </div>
-        <div class="nofoundp">
-        <p>很抱歉，没有找到相关信息</p>
-        </div>
-    </div>
-    <div class="content" v-else>
-      <p class="padtop1"></p>
-      <section class="sectionContract" v-for="(item,index ) in contractList "  :key="index">
-        <div class="titleContract">
-            <div class="title_div" style="margin-left: 10px;">
-                <p>合同编号</p>
+    <div id="main" class="main">
+        <div class="nodata" v-if="isdisplay">
+            <div class="nofound">
+            <img src="../../../style/zs/images/select.png">
             </div>
-            <div class="title_div">
-                <p>标的代码</p>
-            </div>
-            <div class="title_div">
-                <p>交易节代码</p>
+            <div class="nofoundp">
+            <p>很抱歉，没有找到相关信息</p>
             </div>
         </div>
-        <div class="cantitle">
-            <div class="content_div" style="margin-left: 10px;">
-                <p>{{item.I}}</p>
+        <div  v-else>
+        <section class="sectionContract" v-for="(item,index ) in contractList "  :key="index">
+            <div class="titleContract">
+                <div class="title_div" style="margin-left: 10px;">
+                    <p>合同编号</p>
+                </div>
+                <div class="title_div">
+                    <p>标的代码</p>
+                </div>
+                <div class="title_div">
+                    <p>交易节代码</p>
+                </div>
             </div>
-            <div class="content_div">
-                <p>{{item.CI}}</p>
+            <div class="cantitle">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p>{{item.I}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.CI}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.SID}}</p>
+                </div>
             </div>
-            <div class="content_div">
-                <p>{{item.SID}}</p>
+            <div class="titleContract" style="margin-left: 10px;">
+                <div class="title_div">
+                    <p>交收方式</p>
+                </div>
+                <div class="title_div">
+                    <p>创建时间</p>
+                </div>
+                <div class="found_div">
+                    <p @click="gotodetails(item.I)">查看</p>
+                </div>
             </div>
+            <div class="titleContract">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p>--</p>
+                </div>
+                <div class="content_div">
+                    <p  class="title_date">{{item.T|formatDateTime}}</p>
+                </div>
+            </div>
+            <p class="buttomp"></p>
+        </section>
         </div>
-        <div class="titleContract" style="margin-left: 10px;">
-            <div class="title_div">
-                <p>交收方式</p>
-            </div>
-            <div class="title_div">
-                <p>创建时间</p>
-            </div>
-            <div class="found_div">
-                <p @click="gotodetails(item.I)">查看</p>
-            </div>
-        </div>
-        <div class="titleContract">
-            <div class="content_div" style="margin-left: 10px;">
-                <p>--</p>
-            </div>
-            <div class="content_div">
-                <p  class="title_date">{{item.T|formatDateTime}}</p>
-            </div>
-        </div>
-      </section>
     </div>
   </div>
 </template>
@@ -74,6 +74,12 @@ export default {
             contractList:[
             ],
         }
+    },
+    mounted: function () {
+        //原生获取屏幕高度
+        var orderHight = document.body.clientHeight
+        console.log(document.getElementById('main'))
+        document.getElementById('main').style.height = orderHight-50 + 'px'
     },
     methods:{
         getContractList(){
@@ -116,13 +122,8 @@ export default {
 
 <style>
  @import "../../../style/zs/css/zs.css";
-    .padtop1 {
-        width: 100%;
-        padding-top: 1rem;
-    }
     .sectionContract{
         background-color: white;
-        margin-top: 10px;
     }
     .sectionContract p{
         font-size: 15px;
@@ -130,6 +131,7 @@ export default {
     .titleContract{
         display: flex;
         width: 90%;
+        position: relative;
     }
     .cantitle{
         display: flex;

@@ -1,119 +1,119 @@
 <template>
-  <div class="notFounds">
-      <header class="myheader">
-      <a class="left" href="" @click.prevent="back">
-        <img src="../../../style/mudh/images/back.png" alt="">
-      </a>
-      <span style="padding-right: 0.7rem;">委托查询</span>
+  <div class="content">
+    <header class="myheader">
+        <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
+        <span style="padding-right: 0.7rem;">委托查询</span>
     </header>
-    <div class="nodata"  v-if="isdisplay">
-        <div class="nofound">
-        <img src="../../../style/zs/images/select.png">
-        </div>
-        <div class="nofoundp">
-        <p>很抱歉，没有找到相关信息</p>
-        </div>
-    </div>
-    <div class="content" v-else>
-      <p class="padtop1"></p>
-      <section class="entrustContract" v-for="(item,index ) in entrustList ">
-        <div class="titleContract">
-            <div class="title_div" style="margin-left: 10px;">
-                <p>标的代码</p>
+    <div id="main" class="main">
+        <div class="nodata"  v-if="isdisplay">
+            <div class="nofound">
+            <img src="../../../style/zs/images/select.png">
             </div>
-            <div class="title_div">
-                <p>委托价格</p>
-            </div>
-            <div class="title_div">
-                <p>委托数量</p>
+            <div class="nofoundp">
+            <p>很抱歉，没有找到相关信息</p>
             </div>
         </div>
-        <div class="cantitle">
-            <div class="content_div" style="margin-left: 10px;">
-                <p>{{item.C}}</p>
+        <div  v-else>
+        <section class="entrustContract" v-for="(item,index ) in entrustList ">
+            <div class="titleContract">
+                <div class="title_div" style="margin-left: 10px;">
+                    <p>标的代码</p>
+                </div>
+                <div class="title_div">
+                    <p>委托价格</p>
+                </div>
+                <div class="title_div">
+                    <p>委托数量</p>
+                </div>
             </div>
-            <div class="content_div">
-                <p>{{item.P}}</p>
+            <div class="cantitle">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p>{{item.C}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.P}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.Q}}</p>
+                </div>
             </div>
-            <div class="content_div">
-                <p>{{item.Q}}</p>
+            <div class="titleContract">
+                <div class="title_div" style="margin-left: 10px;">
+                    <p>冻结保证金</p>
+                </div>
+                <div class="title_div">
+                    <p>释放保证金</p>
+                </div>
+                <div class="title_div">
+                    <p>有效数量</p>
+                </div>
             </div>
+            <div class="cantitle">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p>{{item.FM}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.RM}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.Q}}</p>
+                </div>
+            </div>
+            <div class="titleContract">
+                <div class="title_div" style="margin-left: 10px;">
+                    <p>冻结手续费</p>
+                </div>
+                <div class="title_div">
+                    <p>释放手续费</p>
+                </div>
+                <div class="title_div">
+                    <p>状态</p>
+                </div>
+            </div>
+            <div class="cantitle">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p>{{item.FF}}</p>
+                </div>
+                <div class="content_div">
+                    <p>{{item.RF}}</p>
+                </div>
+                <div class="content_div">
+                    <p style="color: rgb(241,145,56);" v-if="item.S==1">已委托</p>
+                    <p style="color: rgb(241,145,56);" v-if="item.S==2">部分成交</p>
+                    <p style="color: rgb(241,145,56);" v-if="item.S==3">全部成交</p>
+                    <p style="color: rgb(241,145,56);" v-if="item.S==4">全部撤单</p>
+                    <p style="color: rgb(241,145,56);" v-if="item.S==5">部分撤单</p>
+                </div>
+            </div>
+            <div class="titleContract">
+                <div class="title_div" style="margin-left: 10px;">
+                    <p>委托单号</p>
+                </div>
+                <div class="title_div">
+                    <p>委托时间</p>
+                </div>
+            </div>
+            <div class="cantitle">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p>{{item.ON}}</p>
+                </div>
+                <div class="content_div">
+                    <p  style="width: 150%;">{{item.OT|formatDateTime}}</p>
+                </div>
+            </div>
+            <div class="titleContract">
+                <div class="title_div" style="margin-left: 10px;">
+                    <p>修改时间</p>
+                </div>
+            </div>
+            <div class="canTimetitle">
+                <div class="content_div" style="margin-left: 10px;">
+                    <p style="width: 150%;">{{item.MT|formatDateTime}}</p>
+                </div>
+            </div>
+            <p class="buttomp"></p>
+        </section>
         </div>
-           <div class="titleContract">
-            <div class="title_div" style="margin-left: 10px;">
-                <p>冻结保证金</p>
-            </div>
-            <div class="title_div">
-                <p>释放保证金</p>
-            </div>
-            <div class="title_div">
-                <p>有效数量</p>
-            </div>
-        </div>
-        <div class="cantitle">
-            <div class="content_div" style="margin-left: 10px;">
-                <p>{{item.FM}}</p>
-            </div>
-            <div class="content_div">
-                <p>{{item.RM}}</p>
-            </div>
-            <div class="content_div">
-                <p>{{item.Q}}</p>
-            </div>
-        </div>
-        <div class="titleContract">
-            <div class="title_div" style="margin-left: 10px;">
-                <p>冻结手续费</p>
-            </div>
-            <div class="title_div">
-                <p>释放手续费</p>
-            </div>
-            <div class="title_div">
-                <p>状态</p>
-            </div>
-        </div>
-        <div class="cantitle">
-            <div class="content_div" style="margin-left: 10px;">
-                <p>{{item.FF}}</p>
-            </div>
-            <div class="content_div">
-                <p>{{item.RF}}</p>
-            </div>
-            <div class="content_div">
-                <p style="color: rgb(241,145,56);" v-if="item.S==1">已委托</p>
-                <p style="color: rgb(241,145,56);" v-if="item.S==2">部分成交</p>
-                <p style="color: rgb(241,145,56);" v-if="item.S==3">全部成交</p>
-                <p style="color: rgb(241,145,56);" v-if="item.S==4">全部撤单</p>
-                <p style="color: rgb(241,145,56);" v-if="item.S==5">部分撤单</p>
-            </div>
-        </div>
-        <div class="titleContract">
-            <div class="title_div" style="margin-left: 10px;">
-                <p>委托单号</p>
-            </div>
-            <div class="title_div">
-                <p>委托时间</p>
-            </div>
-        </div>
-        <div class="cantitle">
-            <div class="content_div" style="margin-left: 10px;">
-                <p>{{item.ON}}</p>
-            </div>
-            <div class="content_div">
-                <p  style="width: 150%;">{{item.OT|formatDateTime}}</p>
-            </div>
-        </div>
-        <div class="titleContract">
-            <div class="title_div" style="margin-left: 10px;">
-                <p>修改时间</p>
-            </div>
-        </div>
-        <div class="canTimetitle">
-            <div class="content_div" style="margin-left: 10px;">
-                <p style="width: 150%;">{{item.MT|formatDateTime}}</p>
-            </div>
-        </div>
-      </section>
     </div>
   </div>
 </template>
@@ -179,6 +179,12 @@ export default {
             ],
         }
     },
+     mounted: function () {
+        //原生获取屏幕高度
+        var orderHight = document.body.clientHeight
+        console.log(document.getElementById('main'))
+        document.getElementById('main').style.height = orderHight-50 + 'px'
+    },
     methods:{
         getEntrustList(){
             var timestamp = Date.parse(new Date())
@@ -211,13 +217,8 @@ export default {
 
 <style>
  @import "../../../style/zs/css/zs.css";
-    .padtop1 {
-        width: 100%;
-        padding-top: 1rem;
-    }
     .entrustContract{
         background-color: white;
-        margin-top: 10px;
     }
     .entrustContract p{
         font-size: 15px;
