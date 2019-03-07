@@ -20,7 +20,7 @@
           <div class="secSelect" @click.prevent="orderQuery">
               <p>挂单查询</p><img src="../../style/zs/images/right.png">
           </div>
-          <div  class="secSelect" @click.prevent="billApplyList">
+          <div  class="secSelect" @click.prevent="billApplyList" >
               <p>提货单查询</p><img src="../../style/zs/images/right.png">
           </div>
           <div  class="secSelect" @click.prevent="acceptanceList">
