@@ -1,23 +1,34 @@
 <template>
-    <div>
+    <div >
+        <div>
         <header class="myheader">
-            <router-link :to="{path: 'tocontainer/person', query: {flag : 4}}" tag="a" class="left">
+            <router-link :to="{path: 'user'}" tag="a" class="left">
                 <img src="../../style/mudh/images/mine.png" alt="">
             </router-link>
-            <router-link :to="{path: 'dataQuery', query: {flag : 4}}" tag="a" class="right">
+            <span style="padding-right: 0rem;">待交易标的清单</span>
+            <router-link :to="{path: 'dataQuery', query: {pid : pidSelete}}" tag="a" class="right" >
                 查询
             </router-link>
-            <span style="padding-right: 0rem;">待交易标的清单</span>
         </header>
         <div style="clear: both;"></div>
         <div class="gray"></div>
+        <div v-show="showMsg">
+            <div class="nofound">
+                <img src="../../style/zs/images/select.png">
+            </div>
+            <div class="nofoundp">
+                <p>很抱歉，没有找到相关信息</p>
+            </div>
+        </div>
         <div v-show="list2.length > 0">
-            <tab  active-color='#4a93d7' >
-                <tab-item class="vux-center fontsize17" :selected="index == 0" v-for="(item, index) in list2"
-                          @on-item-click="commodity_query(item,'')" :key="index" >第{{item}}交易节</tab-item>
-            </tab>
+            <div class="weui-tab">
+                <tab  active-color='#4a93d7'>
+                    <tab-item class="vux-center fontsize17" :selected="index == 0" v-for="(item, index) in list2"
+                              @on-item-click="commodity_query(item,'')" :key="index" >第{{item}}交易节</tab-item>
+                </tab>
+            </div>
             <div class="List">
-                <div class="info_item"  v-for="commodity in commodityList" :key="commodity.C">
+                <div class="info_item" @click.prevent="toDetail(commodity)"  v-for="commodity in commodityList" :key="commodity.C">
                     <div class="info_item_top">
                         <div class="info_item_top_td">
                             <span class="span_name">标的代码</span>
@@ -55,21 +66,118 @@
             </div>
         </div>
 
-
-        <tabbar>
-            <tabbar-item  selected @on-item-click="untrade_dlvrprop_query(tabbar1)">
-                <img slot="icon" src="../../style/mudh/images/buy-.png">
-                <img slot="icon-active" src="../../style/mudh/images/buy.png">
-                <span slot="label">{{tabbar1name}}</span>
-            </tabbar-item>
-            <tabbar-item @on-item-click="untrade_dlvrprop_query(tabbar2)">
-                <img slot="icon" src="../../style/mudh/images/sell-.png">
-                <img slot="icon-active" src="../../style/mudh/images/sell.png">
-                <span slot="label">{{tabbar2name}}</span>
-            </tabbar-item>
-        </tabbar>
-
+        <div class="weui-tabbar" id="tabbar">
+            <a class="weui-tabbar__item " @click.prevent="untrade_dlvrprop_query(plate.PID)"  v-for="plate in plateList" :key="plate.PID" :id="forId(plate.PID)">
+                <div name="icon" class="weui-tabbar__icon" v-show="true">
+                    <img :src="iconUrl[plate.TM].icon">
+                </div>
+                <div name="active" class="weui-tabbar__icon" v-show="false">
+                    <img :src="iconUrl[plate.TM].iconactive">
+                </div>
+                <p class="weui-tabbar__label weui-tabbar-color"><span>{{plate.PN}}</span> </p>
+            </a>
+        </div>
     </div>
+     <div id="detail">
+         <div class="mask" @click.prevent="closemask()"></div>
+         <div class="detailcon">
+            <header class="detailHeader">
+                <a  class="right" @click.prevent="closemask()">关闭</a>
+                <span style="padding-left: 0.7rem;">标的详情</span>
+            </header>
+             <div class="cont">
+                 <div class="info_header" >
+                     <span class="span_value">标的详情</span>
+                 </div>
+                 <div class="info_item" >
+                    <div class="info_item_top" >
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">品种名称</span>
+                            <span class="span_value">{{commodityDetail.C}}</span>
+                        </div>
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">起拍价</span>
+                            <span class="span_value">{{commodityDetail.BP}}</span>
+                        </div>
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">报警价</span>
+                            <span class="span_value">{{commodityDetail.AP}}</span>
+                        </div>
+                    </div>
+                    <div class="info_item_top" >
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">标的数量</span>
+                            <span class="span_value">{{commodityDetail.Q | formatNumber}}</span>
+                        </div>
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">最小变动数量</span>
+                            <span class="span_value">{{commodityDetail.MIQ | formatNumber}}</span>
+                        </div>
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">最小报单数量</span>
+                            <span class="span_value">{{commodityDetail.MIQ | formatNumber}}</span>
+                        </div>
+                    </div>
+                    <div class="info_item_top" >
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">加价幅度</span>
+                            <span class="span_value">{{commodityDetail.SP}}</span>
+                        </div>
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">最高加价幅度</span>
+                            <span class="span_value">{{commodityDetail.BP}}</span>
+                        </div>
+                        <div class="info_item_top_td"  >
+                            <span class="span_name">最大报单数量</span>
+                            <span class="span_value">{{commodityDetail.MXSP}}</span>
+                        </div>
+                    </div>
+                     <div class="info_item_top" >
+                         <div class="info_item_top_td"  >
+                             <span class="span_name">手续费率</span>
+                             <span class="span_value" id="fee"></span>
+                         </div>
+                         <div class="info_item_top_td"  >
+                             <span class="span_name">交易保证金</span>
+                             <span class="span_value" id="bond"></span>
+                         </div>
+                         <div class="info_item_top_td"  >
+                             <span class="span_name"></span>
+                             <span class="span_value"></span>
+                         </div>
+                     </div>
+                 </div>
+
+
+                     <div class="info_header" v-show="commoditydp.length > 0  ||commodityddp.length > 0">
+                         <span class="span_value">商品属性</span>
+                     </div>
+                     <div class="info_item" v-show="commoditydp.length > 0  || commodityddp.length > 0">
+                         <div class="info_item_top" v-show="commoditydp.length > 0" v-for="(dlvrpropArry,index) in commoditydp" :key="index">
+                             <div class="info_item_top_td"  v-for="(dlvrprop) in dlvrpropArry" :key="dlvrprop.PI">
+                                 <span class="span_name">{{dlvrprop.PN}}</span>
+                                 <span class="span_value">{{dlvrprop.PV}}</span>
+                             </div>
+                             <div class="info_item_top_td" v-if="dlvrpropArry.length <3" v-for="n in 3 - dlvrpropArry.length" >
+                                 <span class="span_name"></span>
+                                 <span class="span_value"></span>
+                             </div>
+                         </div>
+
+                         <div class="info_item_top" v-show="commodityddp.length > 0" v-for="dlvrprop in commodityddp" >
+                             <div class="info_item_top_td"  >
+                                 <span class="span_th">{{dlvrprop.PN}}</span>
+                                 <span class="span_td">{{dlvrprop.PV}}</span>
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
+              </div>
+        </div>
+    </div>
+
+
 </template>
 
 <script>
@@ -85,21 +193,40 @@
         },
         data () {
             return {
-                tabbar1:1,
-                tabbar1name:'竞价采购',
-                tabbar2:2,
-                tabbar2name:'竞价销售',
+                showMsg:false,
+                plateList:{},
                 list2: [],
-                dlvrpropList:['含糖量','蛋白质','P'],
                 pidSelete:0,
                 sidSelete:0,
                 commodityList:{},
                 msg:'',
+                commodityDetail:{},
+                commoditydp:[],
+                commodityddp:[],
+                iconUrl: {
+                    1: {
+                        icon:require("../../style/mudh/images/buy-.png") ,
+                        iconactive:require("../../style/mudh/images/buy.png")
+                    },
+                    2: {
+                        icon:require("../../style/mudh/images/sell-.png"),
+                        iconactive:require("../../style/mudh/images/sell.png")
+                    },
+                    3: {
+                        icon:require("../../style/mudh/images/tender-.png"),
+                        iconactive:require("../../style/mudh/images/tender.png")
+                    },
+                }
             }
         },
         methods:{
+            closemask(){
+                $("#detail").hide();
+            },
+            forId(index){
+                return "forid_" +index
+            },
             plate_config_query(pid){
-                console.log(this.dlvrpropList.indexOf('P'));
                 var xml = '<?xml version="1.0" encoding ="GB2312"?><GNNT><REQ name="plate_config_query"><PID>'
                     + pid + '</PID></REQ></GNNT>';
 
@@ -111,18 +238,23 @@
                         if(jsonObj.GNNT.REP.RESULT.RETCODE == 0){
                             var plate1 = jsonObj.GNNT.REP.RESULTLIST.REC[0]
                             var plate2 = jsonObj.GNNT.REP.RESULTLIST.REC[1]
-                            this.tabbar1 = plate1.PID
-                            this.tabbar1name = plate1.PN
-                            this.tabbar2 = plate2.PID
-                            this.tabbar2name = plate2.PN
-                            this.untrade_dlvrprop_query(pid == '' ?  this.tabbar1 : pid)
+                            this.plateList = jsonObj.GNNT.REP.RESULTLIST.REC
+                            this.pidSelete = pid == '' ?  plate1.PID : pid
                         }
                     }).catch(error => {
-
                     return;
+
                 })
             },
             untrade_dlvrprop_query(pid){
+
+                $("#tabbar  [name='active']").hide();
+                $("#tabbar  [name='icon']").show();
+                $("#tabbar  p").removeClass("weui-tabbar-color_active").addClass("weui-tabbar-color");
+                $("#forid_"+pid+" [name='icon']").hide();
+                $("#forid_"+pid+" [name='active']").show();
+                $("#forid_"+pid+" p").removeClass("weui-tabbar-color").addClass("weui-tabbar-color_active");
+
                 this.pidSelete = pid
                 console.log('untrade_dlvrprop_query'+pid)
                 var xml = '<?xml version="1.0" encoding ="GB2312"?><GNNT><REQ name="untrade_dlvrprop_query"><PID>'
@@ -139,10 +271,13 @@
                             console.log(jsonObj.GNNT.REP.RESULT.SID.split(','))
                             this.list2 = jsonObj.GNNT.REP.RESULT.SID.split(',')
                             this.commodity_query(this.list2[0],'')
+                            this.showMsg = false
                         }else{
                             this.list2 =[]
                             this.commodityList ={}
+                            this.showMsg = true
                         }
+
                     }).catch(error => {
 
                     return;
@@ -229,10 +364,62 @@
                     }
                 }
                 return arrCopy
+            },
+            toDetail(obj){
+                $("#detail").show();
+
+                this.commodityDetail = obj
+                if(obj.DP){
+                    this.commoditydp = obj.DP
+                }
+                if(obj.DDP){
+                    this.commodityddp = obj.DDP
+                }
+                var fee,bond
+                if(obj.BS == 1 ){ //B  判断买卖方向
+                    if(obj.MAA == 1){   //判断保证金算法(1-按百分比，2-按数量)
+                        var num = parseFloat(obj.MAB)*100
+                        bond = num.toFixed(2) + '%'
+                    }else{
+                        bond = parseFloat(obj.MAB).toFixed(2)
+                    }
+
+                    if(obj.FEA == 1 ){ //判断手续费算法(1-按百分比，2-按数量)
+                        var num = parseFloat(obj.FEB)*100
+                        fee = num.toFixed(2) + '%'
+                    }else{
+                        fee = parseFloat(obj.FEB).toFixed(2)
+                    }
+                }else{//S判断买卖方向
+                    if(obj.MAAS == 1){   //判断保证金算法(1-按百分比，2-按数量)
+                        var num = parseFloat(obj.MAS)*100
+                        bond = num.toFixed(2) + '%'
+                    }else{
+                        bond = parseFloat(obj.MAS).toFixed(2)
+                    }
+
+                    if(obj.FEAS == 1 ){ //判断手续费算法(1-按百分比，2-按数量)
+                        var num = parseFloat(obj.FES)*100
+                        fee = num.toFixed(2) + '%'
+                    }else{
+                        fee = parseFloat(obj.FES).toFixed(2)
+                    }
+                }
+
+                $("#fee").html(fee)
+                $("#bond").html(bond)
             }
 
 
         },
+        watch: {
+            plateList: function () {
+                var _this = this;
+                _this.$nextTick(function () {
+                    this.untrade_dlvrprop_query(this.pidSelete)
+              });
+            }
+         },
         created() {
             this.plate_config_query("");
         }
@@ -243,7 +430,35 @@
     @import "../../style/mudh/css/mudh.css";
     @import "../../style/user/css/common.css";
 
+    .nofound{
+        background-color: rgb(231, 231, 231);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .nofound img{
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+    }
+    .nofound p{
+        height: 100%;
+    }
+    .nofoundp{
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        font-size: 17px;
+    }
+
     .List{
+        margin-top: 0.9rem;
         height: 100%;
         width: 100%;
         display: flex;
@@ -251,6 +466,8 @@
         align-items: center;
         background: rgb(239, 239, 239);
         font-size: 0.3rem;
+        margin-bottom: 1.0rem;
+        overflow-x: scroll;
     }
 
     .info_item{
@@ -309,6 +526,26 @@
         color: rgb(125, 131, 147);
         text-align: left;
         padding-left: 0.65rem;
+    }
+
+
+
+    #detail {
+        z-index:9999;
+        display:none;
+        position:fixed;
+        top     : 0;
+        left    : 0;
+        bottom  : 0;
+        right   : 0;
+    }
+    .info_header{
+        height: 0.8rem;
+        font-size: 0.35rem;
+        line-height: 0.9rem;
+        padding-left: 0.5rem;
+        text-align: left;
+        background-color: rgb(239, 239, 239);
     }
 
 </style>

@@ -134,19 +134,22 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
+
     export default {
         name: "acceptanceDetail",
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
         data(){
             return {
                 acceptance:{},
-                userId:'',
-                sessionId:''
             }
         },
         methods:{
             acceptanceDetail(id){
-                var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="acceptance_detail"><U>chenx2</U><SI>2473649979923628032</SI><AS>'+
-                    id+'</AS></REQ></GNNT>'
+                var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="acceptance_detail"><U>'+
+                    this.firmId+'</U><SI>'+this.sessionId+'</SI><AS>'+id+'</AS></REQ></GNNT>'
                 this.$ajax.post('',xml)
                     .then(resp => {
                         //将服务器获取的xml格式转化为json对象
@@ -166,6 +169,9 @@
             }
         },
         created(){
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
+            }
             this.acceptanceDetail(this.$route.query.id);
         }
     }

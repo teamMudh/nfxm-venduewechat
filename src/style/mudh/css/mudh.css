@@ -39,7 +39,7 @@ body{
   width: 100%;
   line-height: 0.9rem;
   color: #FFFFFF;
-  background-color: #4a93d7;
+  background-color: rgb(74, 174, 251);
   font-size: 0.36rem;
   text-align: center;
 }
@@ -81,6 +81,138 @@ body{
   padding-bottom: 1.4rem;
   width: 100%;
   background-color: #f4f4f4;
+}
+
+.weui-tabbar {
+  display: flex;
+  position: fixed;
+  z-index: 500;
+  bottom: 0;
+  width: 100%;
+  background-color: #F7F7FA;
+  overflow: auto;
+}
+
+.weui-tabbar::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+.weui-tabbar__item{
+  border-top: 0.1px solid #C0BFC4;
+  display: block;
+  flex: 1;
+  padding: 5px 0 0;
+  font-size: 0;
+  text-align: center;
+  min-width: 25% ;
+}
+.weui-tabbar__icon {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+
+.weui-tabbar__label {
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.weui-tabbar-color{
+  color: #999999;
+}
+
+.weui-tabbar-color_active{
+  color: #4a93d7;
+}
+
+.weui-tab{
+  position: fixed;
+  z-index: 20;
+  width: 100%;
+  top: 0.9rem;
+  padding-top: 0.2rem;
+  background-color: #f4f4f4;
+}
+
+
+
+.cont {
+  margin-top: 1.0rem;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  background: rgb(255,255,255);
+  font-size: 0.25rem;
+  text-align: center;
+}
+
+
+.detailcon{
+  position: fixed;
+  top: 40%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+  overflow-y:auto ;
+}
+
+.detailcon::-webkit-scrollbar {
+  display: none;
+}
+
+
+.detailHeader{
+  top: 40%;
+  position: fixed;
+  z-index: 20;
+  height: 0.9rem;
+  width: 100%;
+  line-height: 0.9rem;
+  color: #FFFFFF;
+  background-color: rgb(74, 174, 251);
+  font-size: 0.36rem;
+  text-align: center;
+}
+
+.detailHeader a {
+  color: #FFFFFF;
+  padding: 0 0.2rem;
+  font-size: 0.3rem;
+  font-weight: 100;
+}
+
+.detailHeader a img {
+  width: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.detailHeader a.active {
+  font-weight: 600;
+}
+
+.detailHeader .left {
+  float: left;
+}
+
+.mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 60%;
+  background:rgba(0,0,0,.5);
 }
 
 

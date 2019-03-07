@@ -7,6 +7,14 @@
             <span style="padding-right: 0.7rem;">验收单列表</span>
         </header>
         <div class="cont">
+            <div  v-if="showMsg">
+                <div class="nofound">
+                    <img src="../../../style/zs/images/select.png">
+                </div>
+                <div class="nofoundp">
+                    <p>很抱歉，没有找到相关信息</p>
+                </div>
+            </div>
             <div class="info_item" v-for="(acceptance,index) in acceptanceList" :key="acceptance.AC" >
                 <div class="info_item_top">
                     <div class="info_item_top_left">
@@ -42,31 +50,32 @@
 </template>
 
 <script>
+
+    import {mapState} from 'vuex';
+
     export default {
         name: 'acceptanceList',
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
         data () {
             return {
-                user: 'chenx2',
-                sessionId: 7331032162319204352,
+                pid:-1,
+                showMsg: false ,
                 acceptanceList: []
             }
         },
         methods: {
             back() {
-                if (window.history.length <= 1) {
-                    this.$router.push({path: '/'})
-                    return false
-                } else {
-                    this.$router.push({path: '/user'})
-                }
+                this.$router.push({path: '/dataQuery', query: {pid : this.pid}})
             },
             toDetail(id) {
                 console.log(id)
                 this.$router.push({name:'acceptanceDetail',query:{id:id}});
             },
             acceptanceQuery(){
-                //var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="billlading_query"><U>'+this.user+'</U><SI>'+this.sessionId+'</SI><BK></BK></REQ></GNNT>'
-                var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="acceptance_query"><U>chenx2</U><SI>2473649979923628032</SI><AS></AS></REQ></GNNT>'
+                var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="acceptance_query"><U>'+
+                    this.firmId+'</U><SI>'+this.sessionId+'</SI><AS></AS></REQ></GNNT>'
                 this.$ajax.post('',xml)
                     .then(resp => {
                         //将服务器获取的xml格式转化为json对象
@@ -79,15 +88,21 @@
                         }else{
                             this.acceptanceList =jsonObj.GNNT.REP.RESULTLIST.REC
                         }
+                        if(jsonObj.GNNT.REP.RESULTLIST == ''){
+                            this.showMsg = true
+                        }
 
 
                     }).catch(error => {
-
                     return;
                 })
             }
         },
         created(){
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
+            }
+            this.pid = this.$route.query.pid
             this.acceptanceQuery();
         }
     }
@@ -96,6 +111,33 @@
 <style scoped>
     @import "../../../style/mudh/css/common.css";
     @import "../../../style/user/css/common.css";
+
+    .nofound{
+        background-color: rgb(231, 231, 231);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: 35%;
+        left: 35%;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .nofound img{
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+    }
+    .nofound p{
+        height: 100%;
+    }
+    .nofoundp{
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        font-size: 17px;
+    }
 
 
     .cont {

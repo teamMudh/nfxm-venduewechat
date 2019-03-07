@@ -115,19 +115,22 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
+
     export default {
         name: "billApplyDetail",
+        computed:{
+            ...mapState(['firmId','isLogin','sessionId'])
+        },
         data(){
             return {
                 billapply:{},
-                userId:'',
-                sessionId:''
             }
         },
         methods:{
             billapplyDetail(billApplyId){
-                var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="billlading_detail"><U>chenx2</U><SI>2473649979923628032</SI><BK>'+
-                    billApplyId+'</BK></REQ></GNNT>'
+                var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="billlading_detail"><U>'+
+                    this.firmId+'</U><SI>'+this.sessionId+'</SI><BK>'+billApplyId+'</BK></REQ></GNNT>'
                 this.$ajax.post('',xml)
                     .then(resp => {
                         //将服务器获取的xml格式转化为json对象
@@ -147,6 +150,9 @@
             }
         },
         created(){
+            if (!this.isLogin) {
+                this.$router.push({path: '/'})
+            }
             this.billapplyDetail(this.$route.query.billApplyId);
         }
 
