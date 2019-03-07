@@ -73,6 +73,11 @@ export default {
       this.$router.push({
         path: '/acceptanceList'
     });
+    },
+    back(){
+      this.$router.push({
+        path: '/index'
+    });
     }
   }
 }
