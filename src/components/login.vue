@@ -96,7 +96,7 @@
                         if (jsonObj.GNNT.REP.RESULT.RETCODE>=0){
                             that.$store.commit('RECORD_USERINFO',{'firmId':jsonObj.GNNT.REP.RESULT.U,'sessionId':jsonObj.GNNT.REP.RESULT.RETCODE})
                             that.$store.commit('IS_LOGIN',true)
-                            that.$router.push({path: '/user'})
+                            that.$router.push({path: '/index'})
                         } else {
                             that.dialogOption.text="用户名或密码错误"
                             that.showDialog=true

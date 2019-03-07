@@ -89,7 +89,7 @@
                     <span class="span_value">交易卖手续费系数</span>
                 </div>
             </div>
-            <div class="content_title">
+            <div class="content_title" v-if="DP.length>0">
                 <span>标的交收属性</span>
             </div>
             <div class="content_line" v-for="(item,index) in DP" v-if="item.PV!=null&&item.PV!=''&&item.PN!=null&&item.PN!=''">

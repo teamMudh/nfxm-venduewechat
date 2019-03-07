@@ -36,7 +36,7 @@
                     this.$router.push({path: '/'})
                     return false
                 } else {
-                    this.$router.push({path: '/user'})
+                    this.$router.push({path: '/index'})
                 }
             },
             nav(name){
