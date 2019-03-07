@@ -20,10 +20,10 @@
           <div class="secSelect" @click.prevent="orderQuery">
               <p>挂单查询</p><img src="../../style/zs/images/right.png">
           </div>
-          <div  class="secSelect">
+          <div  class="secSelect" @click.prevent="billApplyList">
               <p>提货单查询</p><img src="../../style/zs/images/right.png">
           </div>
-          <div  class="secSelect">
+          <div  class="secSelect" @click.prevent="acceptanceList">
               <p>验收单查询</p><img src="../../style/zs/images/right.png">
           </div>
       </div>
@@ -62,6 +62,16 @@ export default {
     orderQuery(){
         this.$router.push({
         path: '/restingOrder'
+    });
+    },
+    billApplyList(){
+      this.$router.push({
+        path: '/billApplyList'
+    });
+    },
+    acceptanceList(){
+      this.$router.push({
+        path: '/acceptanceList'
     });
     }
   }
