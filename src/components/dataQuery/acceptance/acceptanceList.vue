@@ -56,18 +56,17 @@
     export default {
         name: 'acceptanceList',
         computed:{
-            ...mapState(['firmId','isLogin','sessionId'])
+            ...mapState(['firmId','isLogin','sessionId','pid'])
         },
         data () {
             return {
-                pid:-1,
                 showMsg: false ,
                 acceptanceList: []
             }
         },
         methods: {
             back() {
-                this.$router.push({path: '/dataQuery', query: {pid : this.pid}})
+                this.$router.push({path: '/dataQuery'})
             },
             toDetail(id) {
                 console.log(id)
@@ -102,7 +101,6 @@
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }
-            this.pid = this.$route.query.pid
             this.acceptanceQuery();
         }
     }

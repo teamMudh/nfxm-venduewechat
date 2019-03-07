@@ -59,14 +59,13 @@
         },
         data () {
             return {
-                pid:-1,
                 showMsg:false,
                 billladingList: []
             }
         },
         methods: {
             back() {
-                this.$router.push({path: '/dataQuery', query: {pid : this.pid}})
+                this.$router.push({path: '/dataQuery'})
             },
             toDetail(id) {
                 console.log(id)
@@ -103,7 +102,6 @@
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }
-            this.pid = this.$route.query.pid
             this.billApplyQuery();
         }
     }

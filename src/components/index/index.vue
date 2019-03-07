@@ -6,9 +6,9 @@
                 <img src="../../style/mudh/images/mine.png" alt="">
             </router-link>
             <span style="padding-right: 0rem;">待交易标的清单</span>
-            <router-link :to="{path: 'dataQuery', query: {pid : pidSelete}}" tag="a" class="right" >
+            <a @click.prevent="toSerach()"  class="right">
                 查询
-            </router-link>
+            </a>
         </header>
         <div style="clear: both;"></div>
         <div class="gray"></div>
@@ -69,10 +69,10 @@
         <div class="weui-tabbar" id="tabbar">
             <a class="weui-tabbar__item " @click.prevent="untrade_dlvrprop_query(plate.PID)"  v-for="plate in plateList" :key="plate.PID" :id="forId(plate.PID)">
                 <div name="icon" class="weui-tabbar__icon" v-show="true">
-                    <img :src="iconUrl[plate.TM].icon">
+                    <img :src="iconUrl[plate.TM].icon" class="img">
                 </div>
                 <div name="active" class="weui-tabbar__icon" v-show="false">
-                    <img :src="iconUrl[plate.TM].iconactive">
+                    <img :src="iconUrl[plate.TM].iconactive" class="img">
                 </div>
                 <p class="weui-tabbar__label weui-tabbar-color"><span>{{plate.PN}}</span> </p>
             </a>
@@ -337,17 +337,6 @@
                     return;
                 })
             },
-            commodity_detail(code){
-                console.log('commodity_detail '+ code)
-                this.$router.push({
-                    name: 'commoditydetail',
-                    params: {
-                        pid :  this.pidSelete,
-                        sid : this.sidSelete ,
-                        code: code
-                    }
-                })
-            },
             toTwodimenArray(arr){
                 var a = 0
                 var j = 0
@@ -408,6 +397,10 @@
 
                 $("#fee").html(fee)
                 $("#bond").html(bond)
+            },
+            toSerach(){
+                this.$store.commit('RECORD_PID',this.pidSelete)
+                this.$router.push({path: '/dataQuery'})
             }
 
 

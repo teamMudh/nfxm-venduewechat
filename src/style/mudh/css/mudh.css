@@ -77,12 +77,6 @@ body{
 }
 
 
-.content {
-  padding-bottom: 1.4rem;
-  width: 100%;
-  background-color: #f4f4f4;
-}
-
 .weui-tabbar {
   display: flex;
   position: fixed;
@@ -114,7 +108,7 @@ body{
   height: 27px;
 }
 
-img {
+.img {
   width: 100%;
   height: 100%;
 }
