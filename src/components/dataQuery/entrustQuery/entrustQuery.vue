@@ -14,7 +14,7 @@
             </div>
         </div>
         <div  v-else>
-        <section class="entrustContract" v-for="(item,index ) in entrustList ">
+        <section class="entrustContract" v-for="(item,index ) in entrustList " :key="index">
             <div class="titleContract">
                 <div class="title_div" style="margin-left: 10px;">
                     <p>标的代码</p>

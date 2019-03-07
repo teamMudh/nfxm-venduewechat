@@ -108,8 +108,8 @@
                     </div>
                     <div class="username">成交信息</div>
             </div>
-            <div class="tradeCon">
-                <div class="trade_Contract" style=" border-bottom: 1px solid rgb(239, 239, 237);height:50%;">
+            <div class="content" style="height:11%;">
+                <div class="trade_Contract" style=" border-bottom: 1px solid rgb(239, 239, 237);height:50%;width: 96%;background-color: white;">
                     <div class="trade_div" style="margin-left: 10px;width:25%;">
                         <p>成交价格</p>
                     </div>
@@ -120,7 +120,7 @@
                         <p>成交时间</p>
                     </div>
                 </div> 
-                <div class="trade_Contract">
+                <div class="trade_Contract" style=" height:50%;width: 96%;background-color: white;">
                     <div class="trade_div" style="margin-left: 10px;width:25%;margin-top: 4px;">
                         <p>{{td[0].P}}</p>
                     </div>
@@ -243,11 +243,6 @@ export default {
         align-items: center;
         justify-content: center;
         background: rgb(255, 255, 253);
-    }
-    .tradeCon{
-        background: rgb(255, 255, 253);
-        height: 11%;
-        width: 96%;
     }
     .trade_Contract{
         display: flex; 
