@@ -18,7 +18,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://172.18.3.11:40188/vendue-frontend-trade/webHttpServlet',  // target host
+                target: 'http://172.18.3.11:40160/vendue-frontend-trade/mobileHttpServlet',  // target host
                 ws: true,  // proxy websockets
                 changeOrigin: true,  // needed for virtual hosted sites
                 pathRewrite: {

@@ -142,7 +142,6 @@ body{
 .cont {
   margin-top: 1.0rem;
   bottom: 0;
-  height: 100%;
   width: 100%;
   align-items: center;
   background: rgb(255,255,255);
@@ -208,6 +207,8 @@ body{
   bottom: 60%;
   background:rgba(0,0,0,.5);
 }
+
+
 
 
 

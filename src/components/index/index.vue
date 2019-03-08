@@ -93,7 +93,7 @@
                     <div class="info_item_top" >
                         <div class="info_item_top_td"  >
                             <span class="span_name">品种名称</span>
-                            <span class="span_value">{{commodityDetail.C}}</span>
+                            <span class="span_value">{{commodityDetail.BN}}</span>
                         </div>
                         <div class="info_item_top_td"  >
                             <span class="span_name">起拍价</span>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="info_item_top_td"  >
                             <span class="span_name">最小变动数量</span>
-                            <span class="span_value">{{commodityDetail.MIQ | formatNumber}}</span>
+                            <span class="span_value">{{commodityDetail.TU | formatNumber}}</span>
                         </div>
                         <div class="info_item_top_td"  >
                             <span class="span_name">最小报单数量</span>
@@ -221,6 +221,9 @@
         },
         methods:{
             closemask(){
+                this.commodityddp = []
+                this.commoditydp = []
+                this.commodityDetail = {},
                 $("#detail").hide();
             },
             forId(index){
@@ -422,9 +425,9 @@
 <style scoped>
     @import "../../style/mudh/css/mudh.css";
     @import "../../style/user/css/common.css";
-
     .nofound{
-        background-color: rgb(231, 231, 231);
+
+        background-color: #DAD8D9;
         width: 100px;
         height: 100px;
         border-radius: 50%;
@@ -441,13 +444,16 @@
         margin-top: 20px;
     }
     .nofound p{
+        color: #FFFFFF;
         height: 100%;
     }
     .nofoundp{
+        margin-top: 3%;
         position: absolute;
         top: 50%;
         left: 25%;
         font-size: 17px;
+        color: rgb(163, 160, 160);
     }
 
     .List{

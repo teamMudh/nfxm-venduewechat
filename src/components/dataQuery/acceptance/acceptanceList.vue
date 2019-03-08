@@ -1,9 +1,7 @@
 <template>
     <div>
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
+            <img src="../../../style/mudh/images/back.png" alt="" @click.prevent="back">
             <span style="padding-right: 0.7rem;">验收单列表</span>
         </header>
         <div class="cont">
@@ -75,6 +73,7 @@
             acceptanceQuery(){
                 var xml = '<?xml version="1.0" encoding = "GB2312"?><GNNT><REQ name="acceptance_query"><U>'+
                     this.firmId+'</U><SI>'+this.sessionId+'</SI><AS></AS></REQ></GNNT>'
+                console.log(xml)
                 this.$ajax.post('',xml)
                     .then(resp => {
                         //将服务器获取的xml格式转化为json对象
@@ -111,7 +110,8 @@
     @import "../../../style/user/css/common.css";
 
     .nofound{
-        background-color: rgb(231, 231, 231);
+
+        background-color: #DAD8D9;
         width: 100px;
         height: 100px;
         border-radius: 50%;
@@ -128,13 +128,16 @@
         margin-top: 20px;
     }
     .nofound p{
+        color: #FFFFFF;
         height: 100%;
     }
     .nofoundp{
+        margin-top: 3%;
         position: absolute;
         top: 50%;
         left: 25%;
         font-size: 17px;
+        color: rgb(163, 160, 160);
     }
 
 

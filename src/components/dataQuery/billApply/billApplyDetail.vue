@@ -1,9 +1,7 @@
 <template>
     <div>
         <header class="myheader">
-            <a class="left" href="" @click.prevent="back">
-                <img src="../../../style/mudh/images/back.png" alt="">
-            </a>
+            <img src="../../../style/mudh/images/back.png" alt=""  @click.prevent="back">
             <span style="padding-right: 0.7rem;">提货单详情</span>
         </header>
         <div class="cont">
