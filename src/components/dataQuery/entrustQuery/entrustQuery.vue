@@ -121,7 +121,7 @@
 import {mapState} from 'vuex';
 export default {
      computed:{
-        ...mapState(['firmId','isLogin','sessionId'])
+        ...mapState(['firmId','isLogin','sessionId','pid'])
     },
     data () {
         return {
@@ -188,7 +188,7 @@ export default {
     methods:{
         getEntrustList(){
             var timestamp = Date.parse(new Date())
-            var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="order_query"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>1</PID><TI>'+timestamp+'</TI></REQ></GNNT>'
+            var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="order_query"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>'+this.pid+'</PID><TI>'+timestamp+'</TI></REQ></GNNT>'
             this.$ajax.post('',data).then(resp => {
                 //将服务器获取的xml格式转化为json对象
                 var jsonObj = this.$x2js.xml2js(resp.data)
@@ -210,6 +210,9 @@ export default {
       },
     },
     created() {
+        if (!this.isLogin) {
+            this.$router.push({path: '/'})
+        }
       this.getEntrustList();
     }
 }
