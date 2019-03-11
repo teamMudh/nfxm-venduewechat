@@ -5,9 +5,9 @@ import store from './store'
 
 //引入Axios
 import Axios from 'axios'
-Axios.defaults.withCredentials = true
+// Axios.defaults.withCredentials = true
 Axios.defaults.headers.post['Content-type']='xml'
-Axios.defaults.baseURL = '/api'
+Axios.defaults.baseURL = 'http://172.18.3.11:40160/vendue-frontend-trade/mobileHttpServlet'
 Vue.prototype.$ajax = Axios; //挂载原型
 
 import x2js from 'x2js' //xml数据处理插件
