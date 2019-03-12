@@ -13,51 +13,36 @@
             <p>很抱歉，没有找到相关信息</p>
             </div>
         </div>
-        <div  v-else>
-        <section class="sectionContract" v-for="(item,index ) in contractList "  :key="index">
-            <div class="titleContract">
-                <div class="title_div" style="margin-left: 10px;">
-                    <p>合同编号</p>
+        <div class="info_item" v-for="(item,index ) in contractList "  :key="index" v-else>
+            <div class="info_item_top">
+                <div class="info_item_top_left" >
+                    <span class="span_name">合同编号</span>
+                    <span class="span_value">{{item.I}}</span>
                 </div>
-                <div class="title_div">
-                    <p>标的代码</p>
+                <div class="info_item_top_mid">
+                    <span class="span_name">标的代码</span>
+                    <span class="span_value">{{item.CI}}</span>
                 </div>
-                <div class="title_div">
-                    <p>交易节代码</p>
-                </div>
-            </div>
-            <div class="cantitle">
-                <div class="content_div" style="margin-left: 10px;">
-                    <p>{{item.I}}</p>
-                </div>
-                <div class="content_div">
-                    <p>{{item.CI}}</p>
-                </div>
-                <div class="content_div">
-                    <p>{{item.SID}}</p>
+                <div class="info_item_top_right">
+                    <span class="span_name">交易节代码</span>
+                    <span class="span_value">{{item.SID}}</span>
                 </div>
             </div>
-            <div class="titleContract" style="margin-left: 10px;">
-                <div class="title_div">
-                    <p>交收方式</p>
+            <div class="info_item_bottom">
+                <div class="info_item_bottom_">
+                    <span class="span_name">交收方式</span>
+                    <span class="span_value">--</span>
                 </div>
-                <div class="title_div">
-                    <p>创建时间</p>
+                <div class="info_item_bottom_">
+                    <span class="span_name">创建时间</span>
+                    <span class="span_value">{{item.T | formatDateTime}}</span>
                 </div>
-                <div class="found_div">
-                    <p @click="gotodetails(item.I)">查看</p>
+                <div class="info_item_bottom_button">
+                    <button @click.prevent="gotodetails(item.I)">查看</button>
                 </div>
             </div>
-            <div class="titleContract">
-                <div class="content_div" style="margin-left: 10px;">
-                    <p>--</p>
-                </div>
-                <div class="content_div">
-                    <p  class="title_date">{{item.T|formatDateTime}}</p>
-                </div>
             </div>
             <p class="buttomp"></p>
-        </section>
         </div>
     </div>
   </div>
@@ -78,7 +63,6 @@ export default {
     mounted: function () {
         //原生获取屏幕高度
         var orderHight = document.body.clientHeight
-        console.log(document.getElementById('main'))
         document.getElementById('main').style.height = orderHight-50 + 'px'
     },
     methods:{
@@ -125,42 +109,76 @@ export default {
 
 <style>
  @import "../../../style/zs/css/zs.css";
-    .sectionContract{
-        background-color: white;
-    }
-    .sectionContract p{
-        font-size: 15px;
-    }
-    .titleContract{
+    .info_item{
+        width: 100%;
+        height: 20%;
         display: flex;
-        width: 90%;
-        position: relative;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 4px solid rgb(239, 239, 239);
+        background: rgb(255,255,255);
+        font-size: 0.25rem;
     }
-    .cantitle{
+    .info_item_top{
+        width: 95%;
+        height: 50%;
         display: flex;
-        border-bottom:1px solid #B8B8B8;
-        width: 90%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid rgb(239, 239, 239);
     }
-    .title_div{
+    .info_item_top_left{
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .info_item_top_mid{
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .info_item_top_right{
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .info_item_bottom{
+        width: 95%;
+        height: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .info_item_bottom_{
         width: 33%;
-        color: #ABABAB;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
-    .content_div{
+    .info_item_bottom_button{
         width: 33%;
-        color: #383838;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    .title_date{
-        width: 4rem;
-    }
-    .found_div{
-        width: 15%;
-        height: 20px;
-        position: absolute;
-        border: 2px solid rgb(241,145,56);
-        border-radius: 9px;
-        margin-left: 6rem;
-        margin-top: 8px;
+    .info_item_bottom_button button{
+        width: 50%;
+        height: 40%;
         text-align: center;
         color: rgb(241,145,56);
+        border: 2px solid rgb(241,145,56);
+        border-radius: 9px;
+        background: rgb(255,255,255);
     }
 </style>
