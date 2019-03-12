@@ -142,11 +142,18 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex';
     export default {
         name: 'restingOrderDetail',
         computed:{
-            ...mapState(['firmId','isLogin','sessionId'])
+            firmId(){
+                return window.localStorage.getItem('firmId')
+            },
+            sessionId(){
+                return window.localStorage.getItem('sessionId')
+            },
+            isLogin(){
+                return window.localStorage.getItem('isLogin')
+            }
         },
         data(){
             return{
@@ -171,7 +178,6 @@
                         var jsonObj = this.$x2js.xml2js(resp.data)
                         this.RESULT=jsonObj.GNNT.REP.RESULT;
                         this.DP=JSON.parse(this.RESULT.DP);
-                        console.log(this.DP)
                     }).catch(error => {
                     return;
                 })
@@ -190,7 +196,13 @@
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }
-             this.getDetail(this.$route.params.PID,this.$route.params.C)
+            if (window.sessionStorage.getItem('PID')==null){
+                window.sessionStorage.setItem('PID',this.$route.params.PID)
+                window.sessionStorage.setItem('C',this.$route.params.C)
+                this.getDetail(this.$route.params.PID,this.$route.params.C)
+            } else {
+                this.getDetail(window.sessionStorage.getItem('PID'),window.sessionStorage.getItem('C'))
+            }
         },
         mounted: function () {
             //原生获取屏幕高度
