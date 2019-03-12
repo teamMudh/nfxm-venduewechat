@@ -5,7 +5,7 @@
             <span>挂单查询</span>
         </header>
         <div id="main" class="main">
-            <div class="nodata"  v-if="REC.length==0">
+            <div class="nodata"  v-if="REC==null">
                 <div class="nofound">
                     <img src="../../../style/zs/images/select.png">
                 </div>
@@ -13,7 +13,7 @@
                     <p>很抱歉，没有找到相关信息</p>
                 </div>
             </div>
-            <div v-if="REC.length!=0" v-for="(item,index) in REC" class="info_item" :key="index">
+            <div v-if="REC!=null" v-for="(item,index) in REC" class="info_item" :key="index">
                 <div class="info_item_top">
                     <div class="info_item_top_left">
                         <span class="span_name">标的代码</span>
@@ -69,7 +69,7 @@
         },
         data(){
             return{
-                REC:[],
+                REC:null,
                 SMAP:{//交易状态
                     1:'未成交',
                     2:'全部成交',
@@ -142,7 +142,6 @@
             }
         },
         created(){
-            console.log("登录状态"+this.isLogin)
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }
