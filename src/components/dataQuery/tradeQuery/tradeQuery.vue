@@ -186,11 +186,13 @@ export default {
     .titleContract{
         display: flex;
         width: 100%;
+        height: 0.5rem;
     }
     .cantitle{
         display: flex;
         border-bottom:1px solid #B8B8B8;
         width: 100%;
+        height: 0.5rem;
     }
     .canTimetitle{
         display: flex;
