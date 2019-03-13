@@ -96,7 +96,7 @@
                     <p>{{item.TN}}</p>
                 </div>
                 <div class="content_div">
-                    <p  style="width: 150%;">{{item.T|formatDateTime}}</p>
+                    <p  style="width: 150%;">{{item.T}}</p>
                 </div>
             </div>
             <p class="buttomp"></p>
@@ -115,20 +115,72 @@ export default {
         return {
             isdisplay:false,
             tradeList:[
-            //     {
-            //    'TN':105,
-            //    'ON':10,
-            //    'SID':5,
-            //    'C':16,
-            //    'CI':1005,
-            //    'P':50,
-            //    'Q':501,
-            //    'T':'2016-05-01 10.20.11',
-            //    'MA':1.55,
-            //    'FE':10.05,
-            //    'OB':10016,
-            //    'OBT':'经纪人',
-            // }
+                {
+               'TN':105,
+               'ON':10,
+               'SID':5,
+               'C':16,
+               'CI':1005,
+               'P':50,
+               'Q':501,
+               'T':'2016-05-01 10.20.11',
+               'MA':1.55,
+               'FE':10.05,
+               'OB':10016,
+               'OBT':'经纪人',
+            }, {
+               'TN':105,
+               'ON':10,
+               'SID':5,
+               'C':16,
+               'CI':1005,
+               'P':50,
+               'Q':501,
+               'T':'2016-05-01 10.20.11',
+               'MA':1.55,
+               'FE':10.05,
+               'OB':10016,
+               'OBT':'经纪人',
+            }, {
+               'TN':105,
+               'ON':10,
+               'SID':5,
+               'C':16,
+               'CI':1005,
+               'P':50,
+               'Q':501,
+               'T':'2016-05-01 10.20.11',
+               'MA':1.55,
+               'FE':10.05,
+               'OB':10016,
+               'OBT':'经纪人',
+            }, {
+               'TN':105,
+               'ON':10,
+               'SID':5,
+               'C':16,
+               'CI':1005,
+               'P':50,
+               'Q':501,
+               'T':'2016-05-01 10.20.11',
+               'MA':1.55,
+               'FE':10.05,
+               'OB':10016,
+               'OBT':'经纪人',
+            }, {
+               'TN':105,
+               'ON':10,
+               'SID':5,
+               'C':16,
+               'CI':1005,
+               'P':50,
+               'Q':501,
+               'T':'2016-05-01 10.20.11',
+               'MA':1.55,
+               'FE':10.05,
+               'OB':10016,
+               'OBT':'经纪人',
+            }
             ],
         }
     },
@@ -146,13 +198,13 @@ export default {
                 var jsonObj = this.$x2js.xml2js(resp.data)
                 // console.log(jsonObj)
                 var retcode = jsonObj.GNNT.REP.RESULT.RETCODE;
-                if(retcode < 0 ||jsonObj.GNNT.REP.RESULTLIST == ''){
-                    this.isdisplay = true;
-                }
-                this.tradeList = jsonObj.GNNT.REP.RESULTLIST.REC;
-                if(this.tradeList.length <= 0 ||this.tradeList ==undefined || this.tradeList == ''){
-                    this.isdisplay = true;
-                }
+                // if(retcode < 0 ||jsonObj.GNNT.REP.RESULTLIST == ''){
+                //     this.isdisplay = true;
+                // }
+                // this.tradeList = jsonObj.GNNT.REP.RESULTLIST.REC;
+                // if(this.tradeList.length <= 0 ||this.tradeList ==undefined || this.tradeList == ''){
+                //     this.isdisplay = true;
+                // }
               }).catch(error => {
             return;
             })
@@ -181,7 +233,8 @@ export default {
         background-color: white;
     }
     .entrustContract p{
-        font-size: 15px;
+        font-size: 0.25rem;
+        line-height: 0.6rem;
     }
     .titleContract{
         display: flex;

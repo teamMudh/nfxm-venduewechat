@@ -224,7 +224,8 @@ export default {
         background-color: white;
     }
     .entrustContract p{
-        font-size: 15px;
+        font-size: 0.25rem;
+        line-height: 0.6rem;
     }
     .titleContract{
         display: flex;
