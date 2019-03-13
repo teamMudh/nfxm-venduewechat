@@ -2,7 +2,7 @@
     <div class="content">
         <header class="myheader">
             <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
-            <span>资金查询</span>
+            <span style="padding-right: 0.7rem;">资金查询</span>
         </header>
         <div id="main" class="main">
             <div class="username">交易商代码&nbsp;&nbsp;&nbsp;&nbsp;{{result.B}}</div>

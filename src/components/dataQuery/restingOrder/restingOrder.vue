@@ -2,7 +2,7 @@
     <div class="content">
         <header class="myheader">
             <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
-            <span>挂单查询</span>
+            <span style="padding-right: 0.7rem;">挂单查询</span>
         </header>
         <div id="main" class="main">
             <div class="nodata"  v-if="REC==null">
@@ -13,7 +13,7 @@
                     <p>很抱歉，没有找到相关信息</p>
                 </div>
             </div>
-            <div v-if="REC!=null" v-for="(item,index) in REC" class="info_item" :key="index">
+            <div v-if="REC!=null&&REC.length>1" v-for="(item,index) in REC" class="info_item" :key="index">
                 <div class="info_item_top">
                     <div class="info_item_top_left">
                         <span class="span_name">标的代码</span>
@@ -52,7 +52,50 @@
                         <span class="span_value">{{item.CT | formatDates}}</span>
                     </div>
                     <div class="info_item_bottom_button">
-                        <button @click.prevent="nav(index)">查看</button>
+                        <button @click.prevent="nav(index,0)">查看</button>
+                    </div>
+                </div>
+            </div>
+            <div v-if="REC!=null&&REC.length==undefined" class="info_item">
+                <div class="info_item_top">
+                    <div class="info_item_top_left">
+                        <span class="span_name">标的代码</span>
+                        <span class="span_value">{{REC.C}}</span>
+                    </div>
+                    <div class="info_item_top_mid">
+                        <span class="span_name">标的名称</span>
+                        <span class="span_value">{{REC.N}}</span>
+                    </div>
+                    <div class="info_item_top_right">
+                        <span class="span_name">标的数量</span>
+                        <span class="span_value">{{REC.Q}}</span>
+                    </div>
+                </div>
+                <div class="info_item_top">
+                    <div class="info_item_top_left">
+                        <span class="span_name">交易状态</span>
+                        <span class="status">{{SMAP[REC.S]}}</span>
+                    </div>
+                    <div class="info_item_top_mid">
+                        <span class="span_name">交易权限</span>
+                        <span class="span_value">{{AMAP[REC.A]}}</span>
+                    </div>
+                    <div class="info_item_top_right">
+                        <span class="span_name">流拍量</span>
+                        <span class="span_value">{{REC.PQ}}</span>
+                    </div>
+                </div>
+                <div class="info_item_bottom">
+                    <div class="info_item_bottom_">
+                        <span class="span_name">第一次挂标日期</span>
+                        <span class="span_value">{{REC.CT | formatDate}}</span>
+                    </div>
+                    <div class="info_item_bottom_">
+                        <span class="span_name">创建时间</span>
+                        <span class="span_value">{{REC.CT | formatDates}}</span>
+                    </div>
+                    <div class="info_item_bottom_button">
+                        <button @click.prevent="nav(0,1)">查看</button>
                     </div>
                 </div>
             </div>
@@ -105,12 +148,20 @@
                     //将服务器获取的xml格式转化为json对象
                     var jsonObj = this.$x2js.xml2js(resp.data)
                     this.REC=jsonObj.GNNT.REP.RESULTLIST.REC;
+                    console.log(this.REC.length)
                 }).catch(error => {
                     return;
                 })
             },
-            nav(id) {
-                this.$router.push({name:'restingOrderDetail',params:{PID:this.REC[id].PID,C:this.REC[id].C}});
+            nav(id,flag) {
+                if (flag==0){
+                    console.log(this.REC[id])
+                    this.$router.push({name:'restingOrderDetail',params:{PID:this.REC[id].PID,C:this.REC[id].C}});
+                } else {
+                    console.log(this.REC)
+                    this.$router.push({name:'restingOrderDetail',params:{PID:this.REC.PID,C:this.REC.C}});
+                }
+
             }
         },
         filters:{

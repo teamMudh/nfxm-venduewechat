@@ -2,7 +2,7 @@
     <div class="content">
         <header class="myheader">
             <img @click.prevent="back" src="../../../style/mudh/images/back.png" alt="">
-            <span>挂单详情</span>
+            <span style="padding-right: 0.7rem;">挂单详情</span>
         </header>
         <div id="main" class="main">
             <div class="content_title">
@@ -92,7 +92,7 @@
             <div class="content_title" v-if="DP.length>0">
                 <span>标的交收属性</span>
             </div>
-            <div class="content_line" v-for="(item,index) in DP" v-if="item.PV!=null&&item.PV!=''&&item.PN!=null&&item.PN!=''">
+            <div class="content_line_single" v-for="(item,index) in DP" v-if="item.PV!=null&&item.PV!=''&&item.PN!=null&&item.PN!=''">
                 <div class="content_line_item_single">
                     <span>{{item.PV}}</span>
                     <span class="span_value">{{item.PN}}</span>
@@ -163,6 +163,8 @@
         },
         methods: {
             back() {
+                // window.sessionStorage.setItem('PID',null)
+                // window.sessionStorage.setItem('C',null)
                 if (window.history.length <= 1) {
                     this.$router.push({path: '/'})
                     return false
@@ -172,6 +174,7 @@
             },
             getDetail(PID,C){
                 var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="pending_detail"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>'+PID+'</PID><C>'+C+'</C></REQ></GNNT>'
+                console.log(data)
                 this.$ajax.post('',data)
                     .then(resp => {
                         //将服务器获取的xml格式转化为json对象
@@ -196,7 +199,7 @@
             if (!this.isLogin) {
                 this.$router.push({path: '/'})
             }
-            if (window.sessionStorage.getItem('PID')==null){
+            if (this.$route.params.PID!=null){
                 window.sessionStorage.setItem('PID',this.$route.params.PID)
                 window.sessionStorage.setItem('C',this.$route.params.C)
                 this.getDetail(this.$route.params.PID,this.$route.params.C)
@@ -225,13 +228,25 @@
         align-items: center;
     }
     .content_line {
-        height: 10%;
+        height: auto;
         width: 98%;
         margin: 0 auto;
         display: flex;
         flex-direction: row;
         background: white;
         font-size: 0.29rem;
+    }
+    .content_line_single {
+        height: auto;
+        width: 98%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        background: white;
+        font-size: 0.29rem;
+        padding-bottom: 2%;
+        padding-top: 2%;
+        border-bottom: 1px solid rgb(239, 239, 237);
     }
     .content_line_item_single {
         height: 100%;
@@ -240,10 +255,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-bottom: 1px solid rgb(239, 239, 237);
     }
     .content_line_item_left {
-        height: 100%;
+        height: auto;
         width: 50%;
         display: flex;
         flex-direction: column;
@@ -251,9 +265,11 @@
         justify-content: center;
         border-right: 1px solid rgb(239, 239, 237);
         border-bottom: 1px solid rgb(239, 239, 237);
+        padding-bottom: 2%;
+        padding-top: 2%;
     }
     .content_line_item_right {
-        height: 100%;
+        height: auto;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -261,6 +277,8 @@
         justify-content: center;
         border-right: 1px solid rgb(239, 239, 237);
         border-bottom: 1px solid rgb(239, 239, 237);
+        padding-bottom: 2%;
+        padding-top: 2%;
     }
 
     .span_value{
