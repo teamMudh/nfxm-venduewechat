@@ -102,18 +102,18 @@
             <div class="content_title">
                 <span>成交信息</span>
             </div>
-             <div class="content_line">
+             <div class="content_line" v-for="(item,index ) in td " :key="index">
                 <div class="content_line_item_left" style="width:25%;">
                     <span class="span_value">成交价格</span>
-                    <span>{{td[0].P}}</span>
+                    <span style="margin-top: 0.1rem;">{{item.P}}</span>
                 </div>
                 <div class="content_line_item_left" style="width:25%;">
                     <span class="span_value">成交数量</span>
-                    <span>{{td[0].Q}}</span>
+                    <span style="margin-top: 0.1rem;">{{item.Q}}</span>
                 </div>
                 <div class="content_line_item_left" style="width:50%;">
                     <span class="span_value">成交时间</span>
-                    <span>{{td[0].T|formatDateTime}}</span>
+                    <span style="margin-top: 0.1rem;">{{item.T|formatDateTime}}</span>
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@ export default {
         this.getDetail();
          //原生获取屏幕高度
         var orderHight = document.body.clientHeight
-        console.log(document.getElementById('main'))
+        // console.log(document.getElementById('main'))
         document.getElementById('main').style.height = orderHight-50 + 'px'
     },
     methods: {
@@ -148,10 +148,8 @@ export default {
                 .then(resp => {
                     //将服务器获取的xml格式转化为json对象
                     var jsonObj = this.$x2js.xml2js(resp.data)
-                    // console.log(jsonObj)
                     this.detailList = jsonObj.GNNT.REP.RESULT;
                     this.td = JSON.parse(this.detailList.TD);
-                    console.log(this.td)
                     // console.log(this.detailList);
                     // console.log(this.td);
                 }).catch(error => {
