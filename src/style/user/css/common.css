@@ -2,7 +2,7 @@
 .myheader{
     position: fixed;
     top: 0;
-    height: 50px;
+    height: 0.9rem;
     width: 100%;
     background: rgb(74, 174, 251);
     display: flex;
@@ -36,14 +36,14 @@ p {
 }
 
 .main {
-    margin-top: 50px;
+    margin-top: 0.9rem;
     background: rgb(239, 239, 239);
     font-size: 0.3rem;
     overflow: auto;
 }
 
 .button {
-    height: 6%;
+    height: 8%;
     width: 90%;
     margin: 8% auto;
     display: flex;

@@ -262,7 +262,7 @@
     }
     .info_item{
         width: 100%;
-        height: 30%;
+        height: 35%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -286,6 +286,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
     .info_item_top_mid{
         flex: 1;
@@ -293,6 +294,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
 
     .info_item_top_right{
@@ -301,6 +303,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
     .info_item_bottom{
         width: 95%;
@@ -315,6 +318,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
     .info_item_bottom_button{
         width: 33%;

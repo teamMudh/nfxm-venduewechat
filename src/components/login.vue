@@ -140,7 +140,7 @@
         display: flex;
         flex-direction: row;
         width: 90%;
-        height: 6%;
+        height: 8%;
         align-items: center;
         justify-content: center;
         margin: 2% auto;
@@ -170,7 +170,7 @@
 
     .form_code {
         width: 100%;
-        height: 6%;
+        height: 8%;
         display: flex;
         flex-direction: row;
         align-items: center;
