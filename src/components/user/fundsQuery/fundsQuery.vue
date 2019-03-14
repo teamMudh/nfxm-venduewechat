@@ -11,8 +11,8 @@
                     <div class="content_top_title">
                         <div class="content_top_title_img"><img src="../../../style/user/images/funds.png" alt=""></div>
                         <div class="content_top_title_info">
-                            <div class="content_top_title_info_item" style="color:rgb(188,30,45)">{{result.EQT}}</div>
-                            <div class="content_top_title_info_item">当前权益</div>
+                            <div class="content_top_title_info_item" style="color:rgb(188,30,45)"><span>{{result.EQT}}</span></div>
+                            <div class="content_top_title_info_item"><span>当前权益</span></div>
                         </div>
                     </div>
                     <div class="content_top_body">
@@ -161,14 +161,14 @@
     .contentc {
         margin-top: 3%;
         width: 100%;
-        height: 87%;
+        height: 90%;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     .content_top {
-        height: 30%;
+        height: 40%;
         width: 96%;
         display: flex;
         flex-direction: column;
@@ -178,7 +178,7 @@
     }
 
     .content_top_title {
-        height: 30%;
+        height: 35%;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -212,11 +212,14 @@
         height: 50%;
         width: 100%;
         text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .content_top_body {
         width: 96%;
-        height: 66%;
+        height: 65%;
         padding: 2% 2%;
         display: flex;
         flex-direction: column;
@@ -244,7 +247,7 @@
     .content_bottom {
         width: 94%;
         margin-top: 2%;
-        height: 48%;
+        height: 60%;
         display: flex;
         padding: 2% 1%;
         flex-direction: column;

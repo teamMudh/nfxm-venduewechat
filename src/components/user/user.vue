@@ -9,10 +9,10 @@
                 <span>资金查询</span>
                 <img src="../../style/zs/images/right.png">
             </div>
-            <div class="query_item" @click.prevent="nav('/debitFundsQuery')">
-                <span>出入金查询</span>
-                <img src="../../style/zs/images/right.png">
-            </div>
+            <!--<div class="query_item" @click.prevent="nav('/debitFundsQuery')">-->
+                <!--<span>出入金查询</span>-->
+                <!--<img src="../../style/zs/images/right.png">-->
+            <!--</div>-->
             <div class="button" @click.prevent="logout">退出登录</div>
         </div>
     </div>
@@ -75,7 +75,7 @@
     @import "../../style/user/css/common.css";
     
     .query_item{
-        height: 7%;
+        height: 8%;
         width: 100%;
         display: flex;
         flex-direction: row;
