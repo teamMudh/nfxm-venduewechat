@@ -287,7 +287,8 @@
                 })
             },
             commodity_query(sid,code){
-                // console.log('commodity_query start')
+                console.log('commodity_query start ==  '+sid)
+                this.commodityList = {}
                 if(sid!=null && sid != ''){
                     this.sidSelete = sid
                 }else{
