@@ -17,25 +17,25 @@
             <div class="info_item_top">
                 <div class="info_item_top_left" >
                     <span class="span_name">合同编号</span>
-                    <span class="span_value">{{item.I}}</span>
+                    <span class="span_value" style="white-space: nowrap; color: black;margin-top: 0.1rem;">{{item.I}}</span>
                 </div>
                 <div class="info_item_top_mid">
                     <span class="span_name">标的代码</span>
-                    <span class="span_value">{{item.CI}}</span>
+                    <span class="span_value" style="white-space: nowrap; color: black;margin-top: 0.1rem;">{{item.CI}}</span>
                 </div>
                 <div class="info_item_top_right">
                     <span class="span_name">交易节代码</span>
-                    <span class="span_value">{{item.SID}}</span>
+                    <span class="span_value" style="white-space: nowrap; color: black;margin-top: 0.1rem;">{{item.SID}}</span>
                 </div>
             </div>
             <div class="info_item_bottom">
                 <div class="info_item_bottom_">
                     <span class="span_name">交收方式</span>
-                    <span class="span_value">--</span>
+                    <span class="span_value" style="white-space: nowrap; color: black;margin-top: 0.1rem;">--</span>
                 </div>
                 <div class="info_item_bottom_">
                     <span class="span_name">创建时间</span>
-                    <span class="span_value">{{item.T | formatDateTime}}</span>
+                    <span class="span_value" style="white-space: nowrap; color: black;margin-top: 0.1rem;">{{item.T | formatDateTime}}</span>
                 </div>
                 <div class="info_item_bottom_button">
                     <button @click.prevent="gotodetails(item.I)">查看</button>
@@ -180,5 +180,12 @@ export default {
         border: 2px solid rgb(241,145,56);
         border-radius: 9px;
         background: rgb(255,255,255);
+    }
+    .span_name {
+        color: rgb(125, 131, 147);
+    }
+
+    span {
+        margin-bottom: 2px;
     }
 </style>

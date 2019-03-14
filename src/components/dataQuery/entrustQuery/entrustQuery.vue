@@ -222,6 +222,11 @@ export default {
  @import "../../../style/zs/css/zs.css";
     .entrustContract{
         background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 5px solid rgb(239, 239, 239);
     }
     .entrustContract p{
         font-size: 0.25rem;
@@ -229,13 +234,13 @@ export default {
     }
     .titleContract{
         display: flex;
-        width: 100%;
+        width: 95%;
         height: 0.5rem;
     }
     .cantitle{
         display: flex;
         border-bottom:1px solid #B8B8B8;
-        width: 100%;
+        width: 95%;
         height: 0.5rem;
     }
     .canTimetitle{

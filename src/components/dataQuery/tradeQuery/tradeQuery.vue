@@ -115,72 +115,72 @@ export default {
         return {
             isdisplay:false,
             tradeList:[
-                {
-               'TN':105,
-               'ON':10,
-               'SID':5,
-               'C':16,
-               'CI':1005,
-               'P':50,
-               'Q':501,
-               'T':'2016-05-01 10.20.11',
-               'MA':1.55,
-               'FE':10.05,
-               'OB':10016,
-               'OBT':'经纪人',
-            }, {
-               'TN':105,
-               'ON':10,
-               'SID':5,
-               'C':16,
-               'CI':1005,
-               'P':50,
-               'Q':501,
-               'T':'2016-05-01 10.20.11',
-               'MA':1.55,
-               'FE':10.05,
-               'OB':10016,
-               'OBT':'经纪人',
-            }, {
-               'TN':105,
-               'ON':10,
-               'SID':5,
-               'C':16,
-               'CI':1005,
-               'P':50,
-               'Q':501,
-               'T':'2016-05-01 10.20.11',
-               'MA':1.55,
-               'FE':10.05,
-               'OB':10016,
-               'OBT':'经纪人',
-            }, {
-               'TN':105,
-               'ON':10,
-               'SID':5,
-               'C':16,
-               'CI':1005,
-               'P':50,
-               'Q':501,
-               'T':'2016-05-01 10.20.11',
-               'MA':1.55,
-               'FE':10.05,
-               'OB':10016,
-               'OBT':'经纪人',
-            }, {
-               'TN':105,
-               'ON':10,
-               'SID':5,
-               'C':16,
-               'CI':1005,
-               'P':50,
-               'Q':501,
-               'T':'2016-05-01 10.20.11',
-               'MA':1.55,
-               'FE':10.05,
-               'OB':10016,
-               'OBT':'经纪人',
-            }
+            //     {
+            //    'TN':105,
+            //    'ON':10,
+            //    'SID':5,
+            //    'C':16,
+            //    'CI':1005,
+            //    'P':50,
+            //    'Q':501,
+            //    'T':'2016-05-01 10.20.11',
+            //    'MA':1.55,
+            //    'FE':10.05,
+            //    'OB':10016,
+            //    'OBT':'经纪人',
+            // }, {
+            //    'TN':105,
+            //    'ON':10,
+            //    'SID':5,
+            //    'C':16,
+            //    'CI':1005,
+            //    'P':50,
+            //    'Q':501,
+            //    'T':'2016-05-01 10.20.11',
+            //    'MA':1.55,
+            //    'FE':10.05,
+            //    'OB':10016,
+            //    'OBT':'经纪人',
+            // }, {
+            //    'TN':105,
+            //    'ON':10,
+            //    'SID':5,
+            //    'C':16,
+            //    'CI':1005,
+            //    'P':50,
+            //    'Q':501,
+            //    'T':'2016-05-01 10.20.11',
+            //    'MA':1.55,
+            //    'FE':10.05,
+            //    'OB':10016,
+            //    'OBT':'经纪人',
+            // }, {
+            //    'TN':105,
+            //    'ON':10,
+            //    'SID':5,
+            //    'C':16,
+            //    'CI':1005,
+            //    'P':50,
+            //    'Q':501,
+            //    'T':'2016-05-01 10.20.11',
+            //    'MA':1.55,
+            //    'FE':10.05,
+            //    'OB':10016,
+            //    'OBT':'经纪人',
+            // }, {
+            //    'TN':105,
+            //    'ON':10,
+            //    'SID':5,
+            //    'C':16,
+            //    'CI':1005,
+            //    'P':50,
+            //    'Q':501,
+            //    'T':'2016-05-01 10.20.11',
+            //    'MA':1.55,
+            //    'FE':10.05,
+            //    'OB':10016,
+            //    'OBT':'经纪人',
+            // }
             ],
         }
     },
@@ -198,13 +198,13 @@ export default {
                 var jsonObj = this.$x2js.xml2js(resp.data)
                 // console.log(jsonObj)
                 var retcode = jsonObj.GNNT.REP.RESULT.RETCODE;
-                // if(retcode < 0 ||jsonObj.GNNT.REP.RESULTLIST == ''){
-                //     this.isdisplay = true;
-                // }
-                // this.tradeList = jsonObj.GNNT.REP.RESULTLIST.REC;
-                // if(this.tradeList.length <= 0 ||this.tradeList ==undefined || this.tradeList == ''){
-                //     this.isdisplay = true;
-                // }
+                if(retcode < 0 ||jsonObj.GNNT.REP.RESULTLIST == ''){
+                    this.isdisplay = true;
+                }
+                this.tradeList = jsonObj.GNNT.REP.RESULTLIST.REC;
+                if(this.tradeList.length <= 0 ||this.tradeList ==undefined || this.tradeList == ''){
+                    this.isdisplay = true;
+                }
               }).catch(error => {
             return;
             })
@@ -231,6 +231,11 @@ export default {
     }
     .entrustContract{
         background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 5px solid rgb(239, 239, 239);
     }
     .entrustContract p{
         font-size: 0.25rem;
@@ -238,18 +243,18 @@ export default {
     }
     .titleContract{
         display: flex;
-        width: 100%;
+        width: 95%;
         height: 0.5rem;
     }
     .cantitle{
         display: flex;
         border-bottom:1px solid #B8B8B8;
-        width: 100%;
+        width: 95%;
         height: 0.5rem;
     }
     .canTimetitle{
         display: flex;
-        width: 100%;
+        width: 95%;
     }
     .title_div{
         width: 33%;
