@@ -6,8 +6,10 @@
     </header>
     <div id="main" class="main">
         <div class="nodata"  v-if="isdisplay">
-            <div class="nofound">
-            <img src="../../../style/zs/images/select.png">
+            <div class="nofound_head">
+                <div class="nofound">
+                <img src="../../../style/zs/images/select.png">
+                </div>
             </div>
             <div class="nofoundp">
             <p>很抱歉，没有找到相关信息</p>
@@ -197,7 +199,13 @@ export default {
                 if(retcode < 0 ||jsonObj.GNNT.REP.RESULTLIST == ''){
                     this.isdisplay = true;
                 }
-                this.entrustList = jsonObj.GNNT.REP.RESULTLIST.REC;
+                if(jsonObj.GNNT.REP.RESULT.TC == 1){
+                    var arr = []
+                    arr.push(jsonObj.GNNT.REP.RESULTLIST.REC)
+                    this.entrustList = arr
+                }else{
+                    this.entrustList =jsonObj.GNNT.REP.RESULTLIST.REC
+                }
                 if(this.entrustList.length <= 0 ||this.entrustList ==undefined || this.entrustList == ''){
                     this.isdisplay = true;
                 }

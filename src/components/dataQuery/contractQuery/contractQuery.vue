@@ -6,8 +6,10 @@
     </header>
     <div id="main" class="main">
         <div class="nodata" v-if="isdisplay">
-            <div class="nofound">
-            <img src="../../../style/zs/images/select.png">
+            <div class="nofound_head">
+                <div class="nofound">
+                <img src="../../../style/zs/images/select.png">
+                </div>
             </div>
             <div class="nofoundp">
             <p>很抱歉，没有找到相关信息</p>
@@ -71,12 +73,18 @@ export default {
             this.$ajax.post('',data).then(resp => {
                 //将服务器获取的xml格式转化为json对象
                 var jsonObj = this.$x2js.xml2js(resp.data)
-                // console.log(jsonObj)
+                 console.log(jsonObj)
                 var retcode = jsonObj.GNNT.REP.RESULT.RETCODE;
                 if(retcode < 0 ||jsonObj.GNNT.REP.RESULTLIST == ''){
                     this.isdisplay = true;
                 }
-                this.contractList = jsonObj.GNNT.REP.RESULTLIST.REC;
+                if(jsonObj.GNNT.REP.RESULT.TC == 1){
+                    var arr = []
+                    arr.push(jsonObj.GNNT.REP.RESULTLIST.REC)
+                    this.contractList = arr
+                }else{
+                    this.contractList =jsonObj.GNNT.REP.RESULTLIST.REC
+                }
                 if(this.contractList.length <= 0 ||this.contractList ==undefined || this.contractList == ''){
                     this.isdisplay = true;
                 }
@@ -135,6 +143,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items:center;
     }
     .info_item_top_mid{
         flex: 1;
@@ -142,6 +151,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items:center;
     }
 
     .info_item_top_right{
@@ -150,6 +160,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items:center;
     }
     .info_item_bottom{
         width: 95%;
@@ -164,6 +175,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items:center;
     }
     .info_item_bottom_button{
         width: 33%;

@@ -124,7 +124,7 @@
 import {mapState} from 'vuex';
 export default {
     computed:{
-        ...mapState(['firmId','isLogin','sessionId'])
+        ...mapState(['firmId','isLogin','sessionId','pid'])
     },
     data(){
         return {
@@ -143,11 +143,12 @@ export default {
     },
     methods: {
         getDetail(){
-            var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="contract_detail"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>1</PID><I>'+this.id+'</I></REQ></GNNT>'
+            var data = '<?xml version="1.0" encoding="GB2312"?><GNNT><REQ name="contract_detail"><U>'+this.firmId+'</U><SI>'+this.sessionId+'</SI><PID>'+this.pid+'</PID><I>'+this.id+'</I></REQ></GNNT>'
             this.$ajax.post('',data)
                 .then(resp => {
                     //将服务器获取的xml格式转化为json对象
                     var jsonObj = this.$x2js.xml2js(resp.data)
+                    console.log(jsonObj);
                     this.detailList = jsonObj.GNNT.REP.RESULT;
                     this.td = JSON.parse(this.detailList.TD);
                     // console.log(this.detailList);
