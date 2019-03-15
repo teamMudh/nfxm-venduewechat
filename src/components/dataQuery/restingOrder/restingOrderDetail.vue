@@ -60,7 +60,11 @@
             <div class="content_line">
                 <div class="content_line_item_left">
                     <span>{{RESULT.MAA==1?'百分比':'数量'}}</span>
-                    <span class="span_value">交易保证金算法</span>
+                    <span class="span_value">交易买保证金算法</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.MAAS==1?'百分比':'数量'}}</span>
+                    <span class="span_value">交易卖保证金算法</span>
                 </div>
             </div>
             <div class="content_line">
@@ -68,7 +72,7 @@
                     <span>{{RESULT.MAB|numFilter}}</span>
                     <span class="span_value">交易买保证金系数</span>
                 </div>
-                <div class="content_line_item_right" style="border-top: 1px solid rgb(239, 239, 237);">
+                <div class="content_line_item_right">
                     <span>{{RESULT.MAS|numFilter}}</span>
                     <span class="span_value">交易卖保证金系数</span>
                 </div>
@@ -76,7 +80,11 @@
             <div class="content_line">
                 <div class="content_line_item_left">
                     <span>{{RESULT.FEA==1?'百分比':'数量'}}</span>
-                    <span class="span_value">交易手续费算法</span>
+                    <span class="span_value">交易买手续费算法</span>
+                </div>
+                <div class="content_line_item_right">
+                    <span>{{RESULT.FEAS==1?'百分比':'数量'}}</span>
+                    <span class="span_value">交易卖手续费算法</span>
                 </div>
             </div>
             <div class="content_line">
@@ -84,7 +92,7 @@
                     <span>{{RESULT.FEB|numFilter}}</span>
                     <span class="span_value">交易买手续费系数</span>
                 </div>
-                <div class="content_line_item_right" style="border-top: 1px solid rgb(239, 239, 237);">
+                <div class="content_line_item_right">
                     <span>{{RESULT.FES|numFilter}}</span>
                     <span class="span_value">交易卖手续费系数</span>
                 </div>
