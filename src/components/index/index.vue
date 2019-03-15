@@ -13,8 +13,10 @@
         <div style="clear: both;"></div>
         <div class="gray"></div>
         <div v-show="showMsg">
+            <div class="nofound_head">
             <div class="nofound">
                 <img src="../../style/zs/images/select.png">
+            </div>
             </div>
             <div class="nofoundp">
                 <p>很抱歉，没有找到相关信息</p>
@@ -426,15 +428,16 @@
 <style scoped>
     @import "../../style/mudh/css/mudh.css";
     @import "../../style/user/css/common.css";
+    .nofound_head{
+        position: absolute;
+        top: 35%;
+        left: 35%;
+    }
     .nofound{
-
         background-color: #DAD8D9;
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        position: absolute;
-        top: 35%;
-        left: 35%;
         display: table-cell;
         text-align: center;
         vertical-align: middle;
@@ -442,14 +445,13 @@
     .nofound img{
         width: 50px;
         height: 50px;
-        margin-top: 20px;
     }
     .nofound p{
         color: #FFFFFF;
         height: 100%;
     }
     .nofoundp{
-        margin-top: 3%;
+        margin-top: 5%;
         position: absolute;
         top: 50%;
         left: 25%;
